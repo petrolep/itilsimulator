@@ -1,0 +1,63 @@
+/**
+ * ITIL Simulator project
+ * 2013 Petr Dvorak, petrdvorak.cz
+ */
+
+/** Workflow designer **/
+.workflow-designer { position: relative;}
+.workflow-panel { background: #C5D2DB; border-radius: 6px; padding: 10px; overflow: hidden; height: 30px; border-top: 2px solid #C5D2DB; position: relative;}
+.workflow-panel .add-label { text-transform: uppercase; position: relative; top: -5px; font-size: 1.5em; color: #3E6B85; margin-right: 10px;}
+.workflow-panel.disabled { opacity: 0.7;}
+
+#positionForm { float: right; white-space: nowrap;}
+#positionForm form { display: inline; vertical-align: middle;}
+#positionForm td,
+#positionForm th { padding: 0;}
+
+.workflow-designer .item,
+.workflow-activity { background-color: #fff; background-image: url(../images/workflow-icons.png); background-repeat: no-repeat; max-width: 200px; z-index:4; border-radius: 4px; border: 1px solid #CCCCCC; box-shadow: 2px 2px 19px #e0e0e0; opacity:0.8; padding: 10px 40px 10px 50px; min-height: 30px;}
+.workflow-activity { display: inline-block; padding-right: 10px; position: relative; top: -15px; box-shadow: none; text-transform: uppercase; text-decoration: none;}
+
+.workflow-designer .item:hover,
+.workflow-activity:hover { opacity: 1; z-index: 5;}
+
+.workflow-designer .item { cursor: move; position: absolute;}
+.workflow-designer .item .title { text-transform: uppercase; font-size: 1.4em; display: block;}
+.workflow-designer .item .description { font-size: 0.9em; color: #666666;}
+
+.new-workflow-msg { font-size: 3em; color: #E2E2E2; text-align: center; padding-top: 100px;}
+
+.activity-message { background-position: 5px -70px; color: #663366;}
+.activity-start { color: #0F6F0F;}
+.activity-evaluation { background-position: 5px -375px; color: #FF9900;}
+.activity-finish { background-position: 5px -300px; color: #4D5C7E;}
+.activity-incident { background-position: 5px -229px; color: #990000;}
+.activity-problem { background-position: 5px -145px; color: #FF0000;}
+.activity-custom { background-position: 5px -460px; color: #826133;}
+
+.workflow-designer .item .handle,
+.workflow-designer .item .remove { position: absolute; bottom: 5px; right: 5px; width: 16px; height: 20px; background: url(../images/workflow-tools-icons.png) 0 100% no-repeat; cursor: pointer; opacity: 0.5;}
+.workflow-designer .item .handle:hover,
+.workflow-designer .item .remove:hover { opacity: 1;}
+.workflow-designer .item .handle { cursor: crosshair;}
+.workflow-designer .item .remove { bottom: auto; top: 5px; background-position: 0 0;}
+
+/** Service designer **/
+.service-designer { min-height: 700px;}
+.service-designer .item { background: #fff url(../images/designer-tools.png) 100% 50% no-repeat; padding: 10px 60px 10px 15px; min-height: 0; font-size: 1.2em;}
+.service-designer .item .handle { background: transparent; width: 44px; height: 100%; bottom: 0; right: 0;}
+.service-designer .item .handle:hover { background: #000; opacity: 0.05;}
+
+.service-designer .item .tooltip { position: absolute; background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px #D6D6D6; font-size: 0.85em; min-width: 180px; max-width: 240px; margin: 20px 0 0 -30px; display: none;}
+.service-designer .item .tooltip li { list-style: none; margin-bottom: 5px;}
+.service-designer .item:hover .tooltip { display: block;}
+.service-designer .item .tooltip li .attr-title { font-size: 0.9em; display: block;}
+
+/** Other **/
+
+._jsPlumb_endpoint { z-index:3;}
+.dragHover { border:1px dotted red; }
+._jsPlumb_overlay { margin-top: -15px; cursor: pointer; text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 6px #fff, 0 0 6px #fff, 0 0 6px #fff, 0 0 6px #fff, 0 0 6px #fff, 0 0 6px #fff; font-size: 0.9em; padding: 6px 6px 6px 20px;}
+._jsPlumb_overlay:hover { background: #F4F6F8 url(../images/ico-edit-link.png) 4px 50% no-repeat; border-radius: 5px;}
+
+path { cursor:pointer; }

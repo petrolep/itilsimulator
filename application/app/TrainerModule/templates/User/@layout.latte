@@ -1,0 +1,9 @@
+{extends '../../../templates/@layout.latte'}
+{block #content}
+  <div class="page-inner">
+    <div class="fr">
+      <a class="link btn-link large cta" href="{link out}">{_'Logout'}</a>
+    </div>
+    {include #userContent}
+  </div>
+{/block}

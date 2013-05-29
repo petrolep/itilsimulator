@@ -1,0 +1,73 @@
+  {form serviceForm, class => (!isset($isAjax) || $isAjax) ? 'ajax' : ''}
+    {include './../_formValidation.latte', form => $form}
+
+    <div id="service-tabs">
+      <ul class="tabs small">
+        <li><a href="#service-basic">{_'Basic information'}</a></li>
+        <li><a href="#service-attributes">{_'Custom attributes'}</a></li>
+        <li><a href="#service-design">{_'Graphic design'}</a></li>
+      </ul>
+      <div id="service-basic">
+        <h4>{_'Basic information'}</h4>
+        <table>
+          <tr>
+            <td class="item" width="120">
+              {label code /}
+              {input code, class => 'prologue', placeholder => 'MY_SERVICE'}
+            </td>
+            <td class="item" colspan="2">
+              {label name /}
+              {input name, class => 'prologue'}
+            </td>
+          </tr>
+          <tr>
+            <td class="item">
+              {label priority /}
+              {input priority}
+            </td>
+            <td class="item">
+              {label serviceOwner /}
+              {input serviceOwner}
+            </td>
+            <td class="item" width="160">
+              {label earnings /}
+              {input earnings}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div class="item">
+                {label description /}
+                {input description}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="service-attributes">
+        <h4>{_'Custom attributes'}</h4>
+        {include '_customAttributes.latte', _form => $form, attributesCount => $attributesCount}
+      </div>
+
+      <div id="service-design">
+        <h4>{_'Graphic design'}</h4>
+        <div class="item">
+          {label graphicDesignData /}
+          {input graphicDesignData}
+        </div>
+      </div>
+    </div>
+
+    <div class="margin10">
+    {input save} {_'or'}
+    {if isset($service)}<a href="{link detail id => $service->id, cancel => true}" class="cancel ajax">{_'Cancel'}</a>
+    {elseif isset($training)}<a href="{link training:detail id => $training->id}" class="cancel">{_'Cancel'}</a>
+    {/if}
+    </div>
+    </div>
+
+    <div style="padding-bottom: 50px"></div>
+    <script type="text/javascript">itil.tabs($('#service-tabs .tabs'));</script>
+
+  {/form}

@@ -1,0 +1,710 @@
+# Gettext keys exported by GettextTranslator and Translation Panel
+# Created: 2013-05-27 21:29:24
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-05-27 21:29+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4 ? 1 : 2));\n"
+
+
+msgid "%s Accepted by %s"
+msgstr "%s přijato uživatelem %s"
+
+msgid "%s Applied fix %s (%s) by %s"
+msgstr "%s Aplikováno řešení %s (%s) uživatelem %s"
+
+msgid "%s Created Known Error record %s"
+msgstr "%s Vytvořena Známá chyba %s"
+
+msgid "%s Esclated by %s"
+msgstr "%s Eskalováno uživatelem %s"
+
+msgid "%s Requested RFC %s"
+msgstr "%s Žádost o RFC %s"
+
+msgid "%s is missing input %s"
+msgstr "Položka \"%s\" postrádá vstup \"%s\""
+
+msgid "%s is missing output connection for %s"
+msgstr "Položce \"%s\" chybí vazba na výstup \"%s\""
+
+msgid "%s is required to be used to fulfill service purpose."
+msgstr "Vstup/Výstup \"%s\" musí být použitý, aby služba mohla být vytvořena."
+
+msgid "%s points"
+msgstr[0] "%s bod"
+msgstr[1] "%s body"
+msgstr[2] "%s bodů"
+
+msgid "1st level"
+msgstr "1. úroveň"
+
+msgid "2nd level"
+msgstr "2. úroveň"
+
+msgid "About website"
+msgstr "O webu"
+
+msgid "Accept incident"
+msgstr "Přijmout incident"
+
+msgid "Affected customers:"
+msgstr "Zasažení zákazníci:"
+
+msgid "All your progress up to this time will be lost, continue?"
+msgstr "Celý tvůj postup až po vybraný čas bude ztracen. Pokračovat?"
+
+msgid "All your progress will be lost, continue?"
+msgstr "Celý tvůj postup v tomto scénáři bude ztracen. Pokračovat?"
+
+msgid "Apply fix"
+msgstr "Použít řešení"
+
+msgid "Apply known solution"
+msgstr "Použít známé řešení"
+
+msgid "Apply solution"
+msgstr "Použít řešení"
+
+msgid "Balance"
+msgstr "Zůstatek"
+
+msgid "Basic information"
+msgstr "Základní informace"
+
+msgid "Budget"
+msgstr "Rozpočet"
+
+msgid "CI code:"
+msgstr "Kód konfig. položky:"
+
+msgid "CI overview"
+msgstr "Přehled CI"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Check my solution"
+msgstr "Zkontrolovat mé řešení"
+
+msgid "Click and drag to connect CI"
+msgstr "Klikem a tahem vznikne spojení na jinou CI"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Configuration item was restarted"
+msgstr "Konfigurační položka byla restartována."
+
+msgid "Congrats, whole training finished!"
+msgstr "Gratuluji, výcvik dokončen!"
+
+msgid "Create Known Error record"
+msgstr "Vytvořit Známou chybu"
+
+msgid "Create RFC"
+msgstr "Vytvořit RFC"
+
+msgid "Date and time"
+msgstr "Datum a čas"
+
+msgid "Date:"
+msgstr "Datum:"
+
+msgid "Design service"
+msgstr "Návrh služby"
+
+msgid "Design successful"
+msgstr "Úspěšný návrh"
+
+msgid "Detail"
+msgstr "Detail"
+
+msgid "Details of known errors can be found in Known Error Database."
+msgstr "Detaily o známých chybách lze nalézt v Databázi známých chyb (Known Error Database)."
+
+msgid "Display:"
+msgstr "Zobrazit:"
+
+msgid "E-mail (optional):"
+msgstr "E-mail (nepovinný):"
+
+msgid "Escalate"
+msgstr "Eskalovat"
+
+msgid "Event detail"
+msgstr "Detail události"
+
+msgid "Event type"
+msgstr "Typ události"
+
+msgid "Event type:"
+msgstr "Typ události:"
+
+msgid "Finished"
+msgstr "Dokončeno"
+
+msgid "Fix"
+msgstr "Řešení"
+
+msgid "Fix is available and will cost you %s."
+msgstr "Řešení je dostupné a bude stát %s."
+
+msgid "History:"
+msgstr "Historie:"
+
+msgid "I don`t have an account"
+msgstr "Nemám účet"
+
+msgid "I have an account"
+msgstr "Mám účet"
+
+msgid "ITIL simulator"
+msgstr "ITIL trenažér"
+
+msgid "If you are satisfied with your design, you can submit the solution. Or you can make any changes to improve it."
+msgstr "Pokud jsi s návrhem spokojený, můžeš ho odeslat jako řešení. Nebo může udělat nějaké změny a vylepšit jej."
+
+msgid "Incident record"
+msgstr "Záznam incidentu (Incident record)"
+
+msgid "Inform customers"
+msgstr "Informovat zákazníky"
+
+msgid "Invalid credentials."
+msgstr "Neplatné přihlašovací údaje."
+
+msgid "Is major incident"
+msgstr "Je významný incident"
+
+msgid "Items count must be a number"
+msgstr "Počet položek musí být číslo"
+
+msgid "Keep me signed in"
+msgstr "Pamatuj si mě"
+
+msgid "Keyword"
+msgstr "Klíčové slovo"
+
+msgid "Keywords"
+msgstr "Klíčová slova"
+
+msgid "Level:"
+msgstr "Úroveň:"
+
+msgid "List of known issues"
+msgstr "Seznam známých chyb"
+
+msgid "Log in"
+msgstr "Přihlásit se"
+
+msgid "Logout"
+msgstr "Odhlásit se"
+
+msgid "Major incident:"
+msgstr "Závažný incident:"
+
+msgid "Major problems"
+msgstr "Kritický problém"
+
+msgid "Monitoring"
+msgstr "Monitoring"
+
+msgid "My dashboard"
+msgstr "Moje výcviky"
+
+msgid "My history"
+msgstr "Má historie"
+
+msgid "My profile"
+msgstr "Můj profil"
+
+msgid "New bank statement -- incomes %s, expenses %s"
+msgstr "Nový bankovní výpis -- příjmy %s, výdaje %s"
+
+msgid "New evaluation"
+msgstr "Nové ohodnocení"
+
+msgid "New incident created"
+msgstr "Vytvořen nový incident"
+
+msgid "New problem created"
+msgstr "Nový problém vytvořen"
+
+msgid "No known solutions available."
+msgstr "Žádná známá řešení nejsou k dispozici."
+
+msgid "No problems"
+msgstr "Žádný problém"
+
+msgid "Password:"
+msgstr "Heslo:"
+
+msgid "Please check the following errors"
+msgstr "Zkontroluj prosím následující chyby"
+
+msgid "Please choose a nickname."
+msgstr "Zvol si prosím přezdívku"
+
+msgid "Please confirm applying solution %s"
+msgstr "Potvrďte prosím použití řešení %s"
+
+msgid "Please enter your password."
+msgstr "Zadej prosím své heslo."
+
+msgid "Please enter your username."
+msgstr "Zadej prosím svoje přihlašovací jméno."
+
+msgid "Please provide valid e-mail address."
+msgstr "Zadej prosím platnou e-mailovou adresu."
+
+msgid "Please use valid e-mail address."
+msgstr "Zadejte prosím platno e-mailovou adresu."
+
+msgid "Please wait, activating monitoring..."
+msgstr "Moment prosím, aktivuji monitoring..."
+
+msgid "Please wait, activating statistics..."
+msgstr "Moment prosím, načítám historii..."
+
+msgid "Priority:"
+msgstr "Priorita:"
+
+msgid "Problem owner"
+msgstr "Vlastník problému"
+
+msgid "Problem record"
+msgstr "Záznam problému (Problem record)"
+
+msgid "Producing outputs:"
+msgstr "Vytvářené výstupy:"
+
+msgid "Public trainings"
+msgstr "Dostupné výcviky"
+
+msgid "Ready to launch"
+msgstr "Připraveno ke startu"
+
+msgid "Really delete the connection?"
+msgstr "Opravdu odstranit vazbu?"
+
+msgid "Ref. No."
+msgstr "Ref. č."
+
+msgid "Reliability:"
+msgstr "Spolehlivost:"
+
+msgid "Reputation"
+msgstr "Hodnocení"
+
+msgid "Required inputs:"
+msgstr "Požadované vstupy:"
+
+msgid "Results"
+msgstr "Výsledky"
+
+msgid "Save problem"
+msgstr "Uložit problém"
+
+msgid "Scenario %s finished!"
+msgstr "Scénář %s dokončen!"
+
+msgid "Scenario was restarted."
+msgstr "Scénář byl restartován."
+
+msgid "Scenario was restored."
+msgstr "Scénář byl obnoven."
+
+msgid "Send my solution"
+msgstr "Odeslat řešení"
+
+msgid "Send request"
+msgstr "Odeslat žádost"
+
+msgid "Service catalog"
+msgstr "Katalog služeb"
+
+msgid "Service code:"
+msgstr "Kód služby:"
+
+msgid "Service history"
+msgstr "Historie služeb"
+
+msgid "Service name:"
+msgstr "Název služby:"
+
+msgid "Sign me in"
+msgstr "Přihlásit"
+
+msgid "Source"
+msgstr "Zdroj"
+
+msgid "Source:"
+msgstr "Zdroj:"
+
+msgid "Start my session"
+msgstr "Začít sezení"
+
+msgid "Start new training"
+msgstr "Začít nový výcvik"
+
+msgid "Start session"
+msgstr "Vstoupit do systému"
+
+msgid "Start this training"
+msgstr "Spustit tento výcvik"
+
+msgid "Start your own game"
+msgstr "Začnu svou vlastní hru"
+
+msgid "Statistics"
+msgstr "Statistiky"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Status:"
+msgstr "Stav:"
+
+msgid "Submit solution"
+msgstr "Odeslat řešení"
+
+msgid "TT resolve"
+msgstr "Čas na vyřešení"
+
+msgid "TT response"
+msgstr "Čas na odpověď"
+
+msgid "Task"
+msgstr "Úkol"
+
+msgid "There are still some missing connections in your design."
+msgstr "Stále nějaké vazby chybí, řešení není kompletní"
+
+msgid "This incident can not be escalated."
+msgstr "Tento incident nelze eskalovat."
+
+msgid "Update list"
+msgstr "Aktualizovat seznam"
+
+msgid "User with selected e-mail address already exists."
+msgstr "Uživatel s danou e-mailovou adresou již existuje."
+
+msgid "Username:"
+msgstr "Uživatelské jméno:"
+
+msgid "Welcome, %s"
+msgstr "Vítej, %s"
+
+msgid "Workaround"
+msgstr "Dočasné řešení"
+
+msgid "You have been signed out."
+msgstr "Byl jsi odhlášen."
+
+msgid "You received %s points and earned %s!"
+msgstr "Získal jsi %s bodů a vydělal %s!"
+
+msgid "You received %s points and lost %s!"
+msgstr[0] "Získal jsi %s bod a prodělal %s!"
+msgstr[1] "Získal jsi %s body a prodělal %s!"
+msgstr[2] "Získal jsi %s bodů a prodělal %s!"
+
+msgid "You received %s points and spent %s for purchasing the service. Now it`s time to earn it back in service operation!"
+msgstr "Získal jsi %s bodů a utratil %s za pořízení služby. Nyní je čas je vydělat zpět jejím provozem!"
+
+msgid "Your design will require initial investment of %s and then its operation will cost you %s."
+msgstr "Vytvořený návrh bude vyžadovat počáteční investici %s a poté budou náklady na provoz %s."
+
+msgid "Your final balance is"
+msgstr "Tvůj konečný zisk je"
+
+msgid "Your nickname:"
+msgstr "Zvol si svoji přezdívku:"
+
+msgid "Your profile has been saved."
+msgstr "Tvůj profil byl uložen."
+
+msgid "Your session has been created."
+msgstr "Tvé sezení bylo zahájeno."
+
+msgid "Your solution"
+msgstr "Tvé řešení"
+
+msgid "Your status"
+msgstr "Tvůj stav"
+
+msgid "Your trainings"
+msgstr "Tvé výcviky"
+
+msgid "all"
+msgstr "vše"
+
+msgid "and"
+msgstr "a"
+
+msgid "archive event"
+msgstr "archivovat událost"
+
+msgid "archived"
+msgstr "archivovaný"
+
+msgid "assigned"
+msgstr "přiřazeno"
+
+msgid "back to list"
+msgstr "zpět na seznam"
+
+msgid "back to training"
+msgstr "zpět na výcvik"
+
+msgid "close"
+msgstr "zavřít"
+
+msgid "closed"
+msgstr "uzavřeno"
+
+msgid "continue scenario"
+msgstr "pokračovat ve scénáři"
+
+msgid "costs"
+msgstr "stojí"
+
+msgid "creator zone"
+msgstr "tvůrčí zóna"
+
+msgid "critical"
+msgstr "kritická"
+
+msgid "detail"
+msgstr "detail"
+
+msgid "filter"
+msgstr "filtr"
+
+msgid "high"
+msgstr "vysoká"
+
+msgid "in progress"
+msgstr "v řešení"
+
+msgid "investigated"
+msgstr "identifikováno"
+
+msgid "items per page"
+msgstr "položek/stránka"
+
+msgid "last activity"
+msgstr "poslední aktivita"
+
+msgid "low"
+msgstr "nízká"
+
+msgid "medium"
+msgstr "střední"
+
+msgid "my profile"
+msgstr "můj profil"
+
+msgid "my trainings"
+msgstr "moje výcviky"
+
+msgid "new"
+msgstr "nový"
+
+msgid "no"
+msgstr "ne"
+
+msgid "operation"
+msgstr "provoz"
+
+msgid "operation costs"
+msgstr "provozní náklady"
+
+msgid "or"
+msgstr "nebo"
+
+msgid "points"
+msgstr[0] "bod"
+msgstr[1] "body"
+msgstr[2] "bodů"
+
+msgid "purchase costs"
+msgstr "pořizovací náklady"
+
+msgid "refresh"
+msgstr "aktualizovat"
+
+msgid "replace"
+msgstr "vyměnit"
+
+msgid "replace for %s"
+msgstr "vyměnit za %s"
+
+msgid "resolved"
+msgstr "vyřešeno"
+
+msgid "restart"
+msgstr "restartovat"
+
+msgid "restart scenario"
+msgstr "restartovat scénář"
+
+msgid "source"
+msgstr "zdroj"
+
+msgid "start scenario"
+msgstr "začít scénář"
+
+msgid "status"
+msgstr "stav"
+
+msgid "undo last step"
+msgstr "zpět (undo)"
+
+msgid "Apply workaround"
+msgstr "Aplikovat dočasné řešení"
+
+msgid "Workaround is available and will cost you %s."
+msgstr "Dočasné řešení je k dispozici a bude stát %s."
+
+msgid "Code:"
+msgstr ""
+
+msgid "Issue code is required."
+msgstr ""
+
+msgid "Issue name is required."
+msgstr ""
+
+msgid "Komunikace"
+msgstr ""
+
+msgid "Tisk"
+msgstr ""
+
+msgid "Infrastruktura"
+msgstr ""
+
+msgid "Workaround description can be up to %d characters long."
+msgstr ""
+
+msgid "Fix description can be up to %d characters long."
+msgstr ""
+
+msgid "Workaround cost must be a valid number."
+msgstr ""
+
+msgid "Fix cost must be a valid number."
+msgstr ""
+
+msgid "Maximum value in attribute %s must be a valid number."
+msgstr ""
+
+msgid "Please complete mandatory field."
+msgstr ""
+
+msgid "Purchase costs must be a number."
+msgstr ""
+
+msgid "Operational costs must be a number."
+msgstr ""
+
+msgid "Soubor (FILE)"
+msgstr ""
+
+msgid "Tiskový soubor (PRINT_FILE)"
+msgstr ""
+
+msgid "Min hodnota atributu 1 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 1 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 2 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 2 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 3 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 3 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 4 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 4 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 5 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 5 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 6 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 6 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 7 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 7 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 8 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 8 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 9 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 9 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 10 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 10 must be a valid number."
+msgstr ""
+
+msgid "Earnings must be a valid number."
+msgstr ""
+
+msgid "Earnings must be between %d and %d"
+msgstr ""
+
+msgid "Edit known issue"
+msgstr ""
+
+msgid "Tiskový dokument (PRINT_DOCUMENT)"
+msgstr ""
+
+msgid "Navýšení místa na NAS"
+msgstr ""
+
+msgid "Nedostatek místa na NAS"
+msgstr ""
+
+msgid "%s Applied workaround %s (%s) by %s"
+msgstr ""
+
+msgid "Service code is required."
+msgstr ""
+
+msgid "Configuration item code is required."
+msgstr ""
+

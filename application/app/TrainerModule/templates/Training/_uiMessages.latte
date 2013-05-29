@@ -1,0 +1,17 @@
+<div id="ui-messages">
+{foreach $uiMessages as $uiMessage}
+  <div class="to-dialog" data-guid="{$uiMessage->guid}" data-force="{=$uiMessage->isNew ? '1' : ''}"{if $uiMessage->type == 'evaluation'} data-priority="2"{/if}>
+    <div class="ui-message {$uiMessage->type}">
+      <span class="title">{$uiMessage->title}</span>
+      {!$uiMessage->text|escape|nl2br}
+    </div>
+    <div class="buttons">
+    {if $uiMessage->param}
+      <a href="{link acceptMessage! workflowActivityId => $uiMessage->param}" class="close ajax button">{_'close'}</a>
+    {else}
+      <a href="" class="close button">{_'close'}</a>
+    {/if}
+    </div>
+  </div>
+{/foreach}
+</div>

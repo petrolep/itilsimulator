@@ -1,0 +1,56 @@
+{block #content}
+  <div class="page-inner">
+    <h1 class="title">{_'Edit training'}</h1>
+
+    {snippet trainingForm}
+      {if isset($isSaved) && $isSaved}
+        <script type="text/javascript">
+          itil.dialog.hide(true);
+        </script>
+      {else}
+        <div class="w30p fr">
+          <div class="highlight-box">
+            <h2>{_'Delete training'}<br>{$training->name}</h2>
+            <div class="center margin10">
+              <a class="link btn-link huge" href="{link deleteTraining! id => $training->id}" onclick="return confirm({_'Do you really want to remove the training? No undo!'})">{_'Delete training'}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="w65p fl">
+          {form trainingForm}
+            {include './../_formValidation.latte', form => $form}
+
+            <div class="w70p fl">
+              <div class="item">
+                {label name /}
+                {input name}
+              </div>
+              <div class="item">
+                {label shortDescription /}
+                {input shortDescription}
+              </div>
+            </div>
+
+            <div class="item clear">
+              {label description /}
+              {input description}
+            </div>
+
+            <div class="item">
+              {input isPublic}
+              {label isPublic /}
+            </div>
+
+            <div class="item">
+              {input isPublished}
+              {label isPublished /}
+            </div>
+
+            {input submit} {input cancel}
+          {/form}
+        </div>
+      {/if}
+    {/snippet}
+  </div>
+{/block}

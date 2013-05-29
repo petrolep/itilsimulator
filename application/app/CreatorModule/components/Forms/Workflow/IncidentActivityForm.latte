@@ -1,0 +1,84 @@
+{form activityForm, class => "ajax evaluation-activity-form"}
+  <span class="title">{_'Edit incident'}</span>
+  <ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+  </ul>
+
+  <table>
+    <tr>
+      <td colspan="4">
+        <div class="item">
+          {label referenceNumber /}
+          {input referenceNumber}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="item">
+          {label priority /}
+          {input priority}
+        </div>
+      </td>
+      <td>
+        <div class="item">
+          {label urgency /}
+          {input urgency}
+        </div>
+      </td>
+      <td>
+        <div class="item">
+          {label impact /}
+          {input impact}
+        </div>
+      </td>
+      <td rowspan="2">
+        <div class="item">
+          {label category /}
+          {input category}
+        </div>
+
+        <div class="item">
+          {input isMajor}
+          {label isMajor /}
+        </div>
+
+        <div class="item">
+          {input canBeEscalated}
+          {label canBeEscalated /}
+        </div>
+
+        <div class="item">
+          {label timeToResponse /}
+          {input timeToResponse}
+        </div>
+
+        <div class="item">
+          {label timeToResolve /}
+          {input timeToResolve}
+        </div>
+
+        <div class="item">
+          {label serviceDeskLevel /}
+          {input serviceDeskLevel}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="item">
+          {label symptoms /}
+          {input symptoms}
+        </div>
+
+        <div class="item">
+          {include './../../../templates/_editor.latte', _form => $_form, field => 'onEventRaw', type => 'activity.onEvent'}
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="buttons">
+    {input save} {_'or'} <a href="" onclick="return itil.dialog.hide(true);">{_'Cancel'}</a>
+  </div>
+{/form}

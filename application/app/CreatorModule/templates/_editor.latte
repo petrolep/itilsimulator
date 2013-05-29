@@ -1,0 +1,10 @@
+{var $id => \Nette\Utils\Strings::random(10, 'a-z')}
+<div class="behavioral-editor {if isset($class)}{$class}{/if}" id="{$id}">
+  {label $field /} <a class="expand" href="#">{_'expand'}</a>
+  {input $field}
+</div>
+<div class="right">
+  <em class="note">{_'hint: use Ctrl+Space for an autocomplete of available properties'}</em>
+</div>
+
+<script>app.editor($('#' + {$id} + ' textarea').get(0), {$type});</script>

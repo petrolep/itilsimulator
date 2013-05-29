@@ -1,0 +1,13 @@
+parameters:
+	database:
+		host: %server%
+		user: %user%
+		password: %pass%
+		driver: pdo_mysql
+		dbname: %database%
+		charset: utf8
+nette:
+
+services:
+
+factories:

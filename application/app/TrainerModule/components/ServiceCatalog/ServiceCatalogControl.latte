@@ -1,0 +1,91 @@
+{define #status}
+  <span class="label health-status-ok" n:if="$healthLevel >= 99">{_'No problems'}</span>
+  <span class="label health-status-minor" n:if="$healthLevel >= 40 && $healthLevel < 99">{_'Minor problems'}</span>
+  <span class="label health-status-major" n:if="$healthLevel < 40">{_'Major problems'}</span>
+{/define}
+
+<h2>{_'Service catalog'}</h2>
+  {if $hasDesignData}
+    <div id="service-catalog-design-wrapper">
+      <div id="service-catalog-design">
+        {foreach $services as $activeService}
+          {if $activeService->service->graphicDesignData}
+            {var $hasDesignData => true}
+            {!str_replace('~/', $baseUri . '/', $activeService->service->graphicDesignData)}
+          {/if}
+        {/foreach}
+      </div>
+    </div>
+    <div id="service-catalog-items"></div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        app.customGraphicDesign.redraw();
+      });
+    </script>
+  {/if}
+
+{snippet serviceCatalogInner}
+  <div class="list expandable" id="service-catalog">
+  {var $customDesignCIstatus => array()}
+  {foreach $services as $activeService}
+  <div class="item{if $iterator->isOdd()} odd{/if}">
+    <strong class="name">{$activeService->service->name}</strong> {include #status, healthLevel => $activeService->healthLevel}
+
+    <span class="metadata">
+      <span class="inline-info-item"><span>{_'priority'}</span> {$activeService->specification->priority|priority|translate}</span>
+      <span class="inline-info-item"><span>{_'costs'}</span> {$activeService->operationalCosts|currency}</span>
+      <span class="inline-info-item"><span>{_'earns'}</span> {$activeService->specification->earnings|currency}</span>
+      <span class="inline-info-item" n:foreach="$activeService->specification->attributes as $attribute">
+        <span>{$attribute->name}</span> {$attribute->currentValue} {$attribute->unit}
+      </span>
+    </span>
+
+    <div class="expand">
+      {foreach $activeService->configurationItems as $activeCi}
+          <div class="ci-item" data-ci="{$activeCi->configurationItem->code}">
+            {include #status, healthLevel => $activeCi->healthLevel}
+            {var $customDesignCIstatus[$activeCi->configurationItem->code] => $activeCi->healthLevel}
+            <span class="title">{$activeCi->configurationItem->name}</span>
+            <br>
+            <span class="description"><span title="{_'priority'}">{$activeCi->specification->priority|priority|translate}</span>, <span title="{_'operation'}">{$activeCi->specification->operationalCosts|currency}</span></span><br>
+
+            {foreach $activeCi->specification->attributes as $attribute}
+              <span class="attribute" title="SLA {if $attribute->minimumValue}min {$attribute->minimumValue} {$attribute->unit}{/if} {if $attribute->maximumValue}max {$attribute->maximumValue} {$attribute->unit}{/if}">
+                {if $attribute->currentValue < $attribute->minimumValue || ($attribute->maximumValue && $attribute->currentValue > $attribute->maximumValue)}
+                  {* attribute broke SLA *}
+                  {$attribute->name}: {$attribute->currentValue} {$attribute->unit}
+                  <strong class="sla-error">
+                    SLA
+                    {if $attribute->minimumValue}
+                      min. {$attribute->minimumValue} {$attribute->unit}
+                    {/if}
+                    {if $attribute->maximumValue}
+                      max. {$attribute->maximumValue} {$attribute->unit}
+                    {/if}
+                  </strong>
+                {else}
+                  {* attribute OK *}
+                  <span title="{$attribute->name}">{$attribute->currentValue} {$attribute->unit}</span>
+                {/if}
+              </span>
+            {/foreach}
+
+            <div class="fr">
+              <a class="ajax" href="{link restartCI! id => $activeCi->configurationItem->id}">{_'restart'}</a>
+              <a class="ajax" data-confirm="Opravdu vyměnit položku? Bude to stát {$activeCi->specification->purchaseCosts|currency}." href="{link replaceCI! id => $activeCi->configurationItem->id}" title="{_'replace for %s', $template->currency($activeCi->specification->purchaseCosts)}">{_'replace'}</a>
+            </div>
+          </div>
+      {/foreach}
+    </div>
+  </div>
+  {/foreach}
+
+  {if $hasDesignData && $customDesignCIstatus}
+    <script type="text/javascript">
+      {foreach $customDesignCIstatus as $key => $value}
+        app.customGraphicDesign.change({$key}, {$value});
+      {/foreach}
+    </script>
+  {/if}
+{/snippet}
+</div>

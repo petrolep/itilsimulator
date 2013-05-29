@@ -1,0 +1,23 @@
+{block #content}
+  <div class="page-inner">
+    {snippet ajaxDialog}
+      <h1>{_'Edit scenario'}</h1>
+
+      <div class="w65p fl">
+        {include './_scenarioForm.latte'}
+      </div>
+
+      {if $scenario}
+        <div class="w30p fr">
+          <div class="highlight-box">
+            <h2>{_'Delete scenario'}<br>{$scenario->name}</h2>
+            <div class="center margin10">
+              <a class="link btn-link huge" href="{link deleteScenario! id => $scenario->id}" onclick="return confirm({_'Do you really want to remove the scenario? No undo!'})">{_'Delete scenario'}</a>
+            </div>
+          </div>
+        </div>
+      {/if}
+      <div class="clear"></div>
+    {/snippet}
+  </div>
+{/block}

@@ -1,0 +1,115 @@
+{if isset($isSaved) && $isSaved}
+  <script type="text/javascript">
+    if (itil.currentPage.refreshConfigurationItems)
+      itil.currentPage.refreshConfigurationItems();
+
+    itil.dialog.hide(true);
+  </script>
+{else}
+  {form configurationItemForm, class => 'ajax', style => 'min-width: 600px'}
+    <ul class="errors" n:if="$form->hasErrors()">
+      <li n:foreach="$form->errors as $error">{$error}</li>
+    </ul>
+
+    <div class="item code-field">
+      {label code /}
+      {input code, placeholder => 'ID'}
+    </div>
+
+    <div class="item name-field">
+      {label name /}
+      {input name}
+    </div>
+
+    <div id="ci-tabs">
+      <ul class="tabs small">
+        <li><a href="#ci-specification">{_'Specification'}</a></li>
+        <li><a href="#ci-attr">{_'Custom attributes'}</a></li>
+        <li><a href="#ci-behavior">{_'Behavioral rules'}</a></li>
+      </ul>
+      <div class="margin10 clear">
+        <div id="ci-specification">
+          <h4>{_'Specification'}</h4>
+          <table>
+            <tr>
+              <td class="item">
+                {label priority /}
+                {input priority}
+              </td>
+              <td class="item">
+                {label purchaseCosts /} ({$currency})
+                {input purchaseCosts, size => 5, style => 'width: 70px'}
+              </td>
+              <td class="item">
+                {label operationalCosts /} ({$currency})
+                {input operationalCosts, size => 5, style => 'width: 70px'}
+              </td>
+              <td class="item"><br>
+                {input isGlobal} {label isGlobal /}
+              </td>
+            </tr>
+          </table>
+
+          <h4>{_'Inputs & outputs'}</h4>
+
+          <em n:if="!$_form['inputs']->items">{_'inputs and outputs can be defined in training detail'}</em>
+          <table>
+            <tr>
+              <td class="item">
+                {label inputs /}
+                {input inputs}
+              </td>
+              <td class="item">
+                {label outputs /}
+                {input outputs}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="ci-attr">
+          <h4>{_'Custom attributes'}</h4>
+          {include './../Service/_customAttributes.latte', _form => $form, attributesCount => $attributesCount}
+        </div>
+
+        <div id="ci-behavior">
+          <h4>{_'Behavioral rules'}</h4>
+          <div id="ci-behavioral-tabs">
+            <ul class="tabs small">
+              <li><a href="#ci-onPing">onPing</a></li>
+              <li><a href="#ci-onInputReceived">onInputReceived</a></li>
+              <li><a href="#ci-onRestart">onRestart</a></li>
+              <li><a href="#ci-onReplace">onReplace</a></li>
+            </ul>
+            <div class="margin10">
+              <div class="item" id="ci-onPing">
+                {include './../../templates/_editor.latte', _form => $_form, field => 'onPingRaw', type => 'ci.onPing', class => 'x-large'}
+              </div>
+
+              <div class="item" id="ci-onInputReceived">
+                {include './../../templates/_editor.latte', _form => $_form, field => 'onInputReceivedRaw', type => 'ci.onInputReceived', class => 'x-large'}
+              </div>
+
+              <div class="item" id="ci-onRestart">
+                {include './../../templates/_editor.latte', _form => $_form, field => 'onRestartRaw', type => 'ci.onRestart', class => 'x-large'}
+              </div>
+
+              <div class="item" id="ci-onReplace">
+                {include './../../templates/_editor.latte', _form => $_form, field => 'onReplaceRaw', type => 'ci.onReplace', class => 'x-large'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> {* /tabs *}
+
+    <script type="text/javascript">
+      itil.tabs($('#ci-tabs .tabs'));
+      itil.tabs($('#ci-behavioral-tabs .tabs'));
+    </script>
+
+    <div class="buttons">
+      {input save} {_'or'} <a href="{link service:detail, id => $service->id}"{if $isAjax} onclick="return itil.dialog.hide(true);"{/if}>{_'Cancel'}</a>
+    </div>
+  {/form}
+{/if}

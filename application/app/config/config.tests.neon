@@ -1,0 +1,16 @@
+parameters:
+	database:
+		host: %server%
+		user: %user%
+		password: %password%
+		driver: pdo_mysql
+		dbname: %database%
+		charset: utf8
+		dump: _sql/initialize-tests.sql
+
+nette:
+	security:
+		frames:
+
+gettextTranslator:
+	lang: en

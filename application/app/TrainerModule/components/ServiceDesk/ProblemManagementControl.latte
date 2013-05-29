@@ -1,0 +1,120 @@
+{define #problemStatus}
+  {if $problem->status == $STATUS_NEW}<span class="label problem-new">{_'new'}</span>
+  {elseif $problem->status == $STATUS_RESOLVED}<span class="label problem-resolved">{_'resolved'}</span>
+  {elseif $problem->status == $STATUS_CLOSED}<span class="label problem-closed">{_'closed'}</span>
+  {elseif $problem->status == $STATUS_INVESTIGATED}<span class="label problem-investigated">{_'investigated'}</span>
+  {/if}
+{/define}
+
+  {snippet detailPanel}
+  {if isset($problem)}
+    <div class="to-dialog">
+      {snippet detailPanelInner}
+        <span class="title">
+          {_'Problem record'}
+          {include #problemStatus problem => $problem}
+        </span>
+        <div class="problem-detail">
+          <table class="formatted">
+            <tr>
+              <th>{_'Date:'}</th>
+              <td>{$problem->date|date:'j.n.Y H:i:s'}</td>
+              <th>{_'Reference number:'}</th>
+              <td>{$problem->referenceNumber}</td>
+            </tr>
+            <tr>
+              <th>{_'Priority:'}</th>
+              <td>{$problem->priority|priority|translate}</td>
+              <th>{_'Category:'}</th>
+              <td>{$problem->category ? $problem->category->name : 'N/A'}</td>
+            </tr>
+            <tr>
+              <th>{_'Problem owner:'}</th>
+              <td>{$problem->problemOwner}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>{_'Symptoms:'}</th>
+              <td colspan="3">{$problem->symptoms}</td>
+            </tr>
+            <tr>
+              <th>{_'History:'}</th>
+              <td colspan="3">{!$problem->history|escape|nl2br}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="rfc-request-form" class="display-none">
+          <h3>RFC</h3>
+          {snippet rfcForm}
+            {form rfcForm, class => 'ajax', onsubmit => 'return Nette.validateForm(this)'}
+              <ul class="errors" n:if="$form->hasErrors()">
+                <li n:foreach="$form->errors as $error">{$error}</li>
+              </ul>
+
+              <table>
+                <tr>
+                  <td class="item">
+                    {label service/}
+                    {input service}
+                  </td>
+                  <td class="item">
+                    {label ci/}
+                    {input ci}
+                  </td>
+                  <td class="item"><br>{input save}</td>
+                </tr>
+              </table>
+            {/form}
+          {/snippet}
+        </div>
+
+        <div class="buttons">
+          <a class="ajax" href="{link createKnownError! id => $problem->id}">{_'Create Known Error record'}</a>
+          <a href="#" onclick="$('#rfc-request-form').slideToggle();return false;">{_'Create RFC'}</a>
+          <a href="" class="button close">{_'close'}</a>
+        </div>
+      {/snippet}
+    </div>
+  {/if}
+  {/snippet}
+
+  {snippet problemsPanel}
+    <table class="list">
+      <thead>
+      <tr>
+        <th width="50">{_'Status'}</th>
+        <th>{_'Date and time'}</th>
+        <th>{_'Ref. No.'}</th>
+        <th>{_'Priority'}</th>
+        <th>{_'Category'}</th>
+        <th>{_'Problem owner'}</th>
+        <th>{_'Detail'}</th>
+      </tr>
+      </thead>
+    {foreach $problems as $problem}
+      <tr>
+        <td>{include #problemStatus problem => $problem}</td>
+        <td>{$problem->date|date:'d.m.Y H:i:s'}</td>
+        <td>{$problem->referenceNumber}</td>
+        <td>{$problem->priority|priority|translate}</td>
+        <td>{if $problem->category}{$problem->category->name}{/if}</td>
+        <td>{$problem->problemOwner}</td>
+        <td><a class="ajax link btn-link service-desk-link" href="{link detail id => $problem->id}">{_'detail'}</a></td>
+      </tr>
+    {/foreach}
+    </table>
+  {/snippet}
+
+  <div class="list-footer">
+    <div class="fr">
+      {control paginator}
+    </div>
+    <div class="filter">
+      {form filterForm, class => 'ajax'}
+        <span class="items-count">{input itemsCount} {label itemsCount /}</span>
+        {_'filter'} {input status} {input priority} {input filter}
+      {/form}
+    </div>
+  </div>

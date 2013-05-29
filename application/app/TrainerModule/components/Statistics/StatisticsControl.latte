@@ -1,0 +1,36 @@
+{snippet statistics}
+  <script language="javascript" type="text/javascript" src="{$baseUri}/js/flot/jquery.flot.js"></script>
+  <div class="graph-tabs">
+    <a class="fr btn-link link ajax" href="{link reload!}">{_'refresh'}</a>
+    <ul>
+      <li><a {if $type == 'budget'}class="selected" {/if}href="{link reload!, type => 'budget'}" class="ajax">{_'Balance'}</a></li>
+      <li><a {if $type != 'budget'}class="selected" {/if}href="{link reload!, type => 'reputation'}" class="ajax">{_'Reputation'}</a></li>
+    </ul>
+  </div>
+
+  <div id="statistics-placeholder" style="padding: 0 10px;">
+
+  </div>
+  <script type="text/javascript">
+    {if $type == 'budget'}
+      var data = {
+        data: [{foreach $budget as $value}[{$value[0]}, {$value[1]}]{if !$iterator->isLast()}, {/if}{/foreach}],
+        label: {_'Balance'}
+      };
+    {else}
+      var data = {
+        data: [{foreach $points as $value}[{$value[0]}, {$value[1]}]{if !$iterator->isLast()}, {/if}{/foreach}],
+        label: {_'Reputation'}
+      };
+    {/if}
+
+    $('#statistics-placeholder').height($('#service-desk .list-wrapper').height() - 40);
+    var plot = $.plot("#statistics-placeholder", [
+      data
+    ], {
+      series: { lines: { show: true, fill: true }, points: { show: false } },
+      grid: { hoverable: true, clickable: true, borderWidth: 0 },
+      xaxis: { show: false }
+    });
+  </script>
+{/snippet}

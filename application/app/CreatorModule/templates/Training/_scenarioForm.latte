@@ -1,0 +1,48 @@
+{form scenarioForm, class => 'ajax', style => 'min-width: 500px;'}
+  <div class="cols cols2">
+    <div class="col">
+      <div class="item">
+        {label name /}
+        {input name}
+      </div>
+    </div>
+    <div class="col">
+      <div class="item" id="scenario-budget-field">
+        {label initialBudget /}
+        {input initialBudget}
+      </div>
+    </div>
+  </div>
+  <div class="item radio-list" id="scenario-type-field">
+    {label type/}
+    {input type}
+  </div>
+  <div class="item">
+    {label description /}
+    {input description}
+  </div>
+  <div class="item" id="scenario-detailDescription-field">
+    {label detailDescription/}
+    {input detailDescription}
+  </div>
+
+  {input submit} {input cancel}
+{/form}
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var dynamicForm = function() {
+    if($(this).val() == 'design') {
+      $('#scenario-budget-field').hide();
+      $('#scenario-detailDescription-field').show();
+    } else {
+      $('#scenario-budget-field').show();
+      $('#scenario-detailDescription-field').hide();
+    }
+  }
+
+  var inputs = $('input', '#scenario-type-field');
+  inputs.change(dynamicForm);
+  dynamicForm.call(inputs.filter(':checked').eq(0));
+});
+</script>

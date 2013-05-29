@@ -1,0 +1,16 @@
+{layout '../@empty.latte'}
+{block #content}
+{snippet form}
+{if isset($isSaved) && $isSaved}
+  {include './../../../templates/_flashes.latte' flashes => $flashes}
+
+  <script type="text/javascript">
+    itil.dialog.hide(true);
+    $('#' + {$activityHtmlId}).find('.description').text({$activityDescription});
+    $('.wf-flow-' + {$activityId}).text({$activityDescription});
+  </script>
+{else}
+  {control editActivityFormControl}
+{/if}
+{/snippet}
+{/block}

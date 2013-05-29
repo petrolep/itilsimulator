@@ -1,0 +1,164 @@
+{* Workflow designer *}
+
+{block #bodyclass}designer{/block}
+
+{block #content}
+  {include './../../../templates/_designer.latte'}
+
+  <div class="page-inner">
+
+    <div id="workflowForm">
+    {form saveWorkflowForm}
+      {* Form to be used for updating activities positions and relations *}
+      <div class="item fl" id="workflowNameField">
+        {input name, style => 'margin-top: -10px; font-size:3em; margin-left: 10px;', placeholder => $template->translate('[Name the workflow]')}
+      </div>
+
+      <div id="positionForm">
+        {input position}
+        {input relations}
+        {input cancel} &nbsp;
+        {input save}
+      </div>
+      <div class="clear"></div>
+    {/form}
+    </div>
+
+    <div class="workflow-panel{if !$workflow->id} disabled{/if}">
+      <span class="add-label">{_'Add:'}</span>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'incident'}{else}#{/if}" class="workflow-activity activity-incident activity-ajax" title="{_'Click to add'}"><span class="title">{_'Incident'}</span></a>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'problem'}{else}#{/if}" class="workflow-activity activity-problem activity-ajax" title="{_'Click to add'}"><span class="title">{_'Problem'}</span></a>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'message'}{else}#{/if}" class="workflow-activity activity-message activity-ajax" title="{_'Click to add'}"><span class="title">{_'Message'}</span></a>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'evaluation'}{else}#{/if}" class="workflow-activity activity-evaluation activity-ajax" title="{_'Click to add'}"><span class="title">{_'Evaluation'}</span></a>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'custom'}{else}#{/if}" class="workflow-activity activity-custom activity-ajax" title="{_'Click to add'}"><span class="title">{_'Custom'}</span></a>
+      <a href="{if $workflow->id}{link createActivity! workflowId => $workflow->id, type => 'finish'}{else}#{/if}" class="workflow-activity activity-finish activity-ajax" title="{_'Click to add'}"><span class="title">{_'Finish'}</span></a>
+    </div>
+
+    <div class="workflow-designer">
+      {foreach $activities as $activity}
+        {!$presenter->renderActivityItem($activity)}
+      {/foreach}
+      {if !$workflow->id}
+        <div class="new-workflow-msg">
+          {_'To edit activities name and save the workflow'}
+        </div>
+      {/if}
+    </div>
+
+    <script type="text/javascript">
+      workflowConnections = [];
+      {foreach $connections as $connection}
+      workflowConnections.push({'id': {$connection->id}, 'title' : {$connection->description}, 'source': {$presenter->generateActivityHTMLId($connection->source)}, 'target': {$presenter->generateActivityHTMLId($connection->target)}});
+      {/foreach}
+    </script>
+
+  </div>
+
+  {if $workflow->id}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.activity-ajax').click(function(event) {
+        itil.showSpinner(event);
+
+        $.getJSON($(this).attr('href') + '&left=' + $(this).position().left, function(response) {
+          if (response.html) {
+            var div = $(document.createElement('div'));
+            div.append(response.html); div.hide();
+            $('.workflow-designer').append(div); div.fadeIn();
+            designer.addItems($('#' + response.htmlid));
+          }
+        });
+
+        return false;
+      });
+
+      var onEditActivity = function (e) {
+        if ($(e.target).hasClass('remove'))
+          return;
+
+        $.get({link editActivity workflowId => $workflow->id, id => '__id__'}.replace(/__id__/, $(this).attr('id')),
+                function (response) {
+                  if (response == 'noform') {
+                    alert({_'This activity has no configuration.'});
+                  } else {
+                    itil.dialog.show(response);
+                  }
+                }, 'html');
+      };
+
+      var onEditFlow = function (c) {
+        if (c) {
+          $.get({link editActivity workflowId => $workflow->id, id => '__id__'}.replace(/__id__/, c.id),
+                  function (response) {
+                    itil.dialog.show(response);
+                  }, 'html');
+
+        } else {
+          alert({_'To edit connection properties first save the workflow.'});
+        }
+      };
+
+      var designerConfiguration = {
+        connections: workflowConnections,
+        onClick: onEditActivity,
+        onConnectionClick: onEditFlow,
+        onConnectionDblClick: function (c) {
+          if (confirm({_'Really delete?'})) jsPlumb.detach(c);
+        }
+      };
+
+      var designer = new itil.workflow.Designer($('.workflow-designer'), designerConfiguration);
+      designer.init();
+
+      $('.workflow-designer .remove').live('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        if (confirm({_'Do you really want to remove activity?'})) {
+          var activity = $(this).parent();
+          $.getJSON({link deleteActivity! htmlId => '__id__'}.replace(/__id__/, $(this).parent().attr('id')), function(response) {
+            if(response.isValid) {
+              designer.removeItem(activity);
+
+            } else {
+              alert('Error');
+            }
+          });
+        }
+
+        return false;
+      });
+
+      var form = $('#workflowForm');
+      form.find('.cancel').click(function() {
+        return confirm({_'Unsaved changes will be lost. Continue?'});
+      });
+
+      form.find('form').submit(function() {
+        var elements = $('.workflow-designer .item');
+        var l = elements.length;
+        var positionField = form.find('input[name=position]');
+        var result = [];
+        for (var i = 0; i < l; i++) {
+          var a = elements.eq(i);
+          var position = a.position();
+          result.push({'id': parseInt(a.attr('data-id'), 10), 'x': position.left, 'y': position.top});
+        }
+        positionField.val(JSON.stringify(result));
+
+        var relationsField = form.find('input[name=relations]');
+        relationsField.val(JSON.stringify(designer.getState()));
+      });
+
+      $('._jsPlumb_overlay').live('mouseover', function() {
+        $(this).attr('title', {_'Click to edit, double click to delete'});
+      });
+    })
+  </script>
+  {else}
+    <script type="text/javascript">
+      $('#workflowNameField input').get(0).focus();
+    </script>
+  {/if}
+
+{/block}

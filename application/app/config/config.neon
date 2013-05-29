@@ -1,0 +1,139 @@
+#
+# SECURITY WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+#
+# If you don't protect this directory from direct web access, anybody will be able to see your passwords.
+# http://nette.org/security-warning
+#
+common:
+	parameters:
+		ITILSimulator:
+			hashMethod: 'sha1' # password hash method
+			currency: 'Kč' # currency used in templates
+			defaultWorkflowName: '[Workflow %s]' # %s will be replaced for current date
+			allowPublicHomepage: false # allow browsing of public events for not-authenticated users
+			assignAnonymousUsersCreatorRole: true # assign anonymous users the Creator role to access Creator Module
+			escalationCost: 200 # cost for escalating the incident
+			graphHistoryLimit: 1800 # graph records history (in seconds)
+			scenarioStepTimeout: 600 # timeout of scenario step (for case user left the scenario) (in seconds)
+			accountingInterval: 60 # interval of generating bank statements (in seconds)
+			designScenarioPoints:  20 # points awarded for Service Design scenario
+
+	php:
+		date.timezone: Europe/Prague
+		# zlib.output_compression: yes
+
+	nette:
+		application:
+			errorPresenter: Error
+
+		session:
+			expiration: 14 days
+
+		xhtml: no
+
+	services:
+		# user authenticator
+		authenticator: ITILSimulator\Base\Authenticator
+
+		# router
+		routerFactory: ITILSimulator\Base\RouterFactory
+		router: @routerFactory::createRouter
+
+		# configurator
+		ITILConfigurator: ITILSimulator\Base\ITILConfigurator(%ITILSimulator%)
+
+		# event manager
+		eventManagerFactory: ITILSimulator\Runtime\Events\EventManagerFactory
+		eventManager: @eventManagerFactory::createEventManager
+
+		# doctrine Entity Manager
+		doctrineFactory: ITILSimulator\Base\DoctrineFactory
+		doctrineEntityManager: @doctrineFactory::createEntityManager(%database%)
+
+		# doctrine repositories
+		trainingRepository: @doctrineFactory::createTrainingRepository
+		serviceRepository: @doctrineFactory::createServiceRepository
+		serviceSpecificationRepository: @doctrineFactory::createServiceSpecificationRepository
+		configurationItemRepository: @doctrineFactory::createConfigurationItemRepository
+		configurationItemSpecificationRepository: @doctrineFactory::createConfigurationItemSpecificationRepository
+		scenarioRepository: @doctrineFactory::createScenarioRepository
+		userRepository: @doctrineFactory::createUserRepository
+		roleRepository: @doctrineFactory::createRoleRepository
+		sessionRepository: @doctrineFactory::createSessionRepository
+		trainingStepRepository: @doctrineFactory::createTrainingStepRepository
+		workflowRepository: @doctrineFactory::createWorkflowRepository
+		workflowActivityRepository: @doctrineFactory::createWorkflowActivityRepository
+		workflowActivitySpecificationRepository: @doctrineFactory::createWorkflowActivitySpecificationRepository
+		operationEventRepository: @doctrineFactory::createOperationEventRepository
+		operationIncidentRepository: @doctrineFactory::createOperationIncidentRepository
+		operationProblemRepository: @doctrineFactory::createOperationProblemRepository
+		operationCategoryRepository: @doctrineFactory::createOperationCategoryRepository
+		inputOutputRepository: @doctrineFactory::createInputOutputRepository
+		knownIssueRepository: @doctrineFactory::createKnownIssueRepository
+		scenarioDesignResultRepository: @doctrineFactory::createScenarioDesignResultRepository
+
+		# service layer
+		userService:
+			class: ITILSimulator\Services\UserService
+			setup:
+				- setConfigurator
+				- setRoleRepository
+				- setUserRepository
+		trainingService:
+			class: ITILSimulator\Services\TrainingService
+			setup:
+				- setConfigurationItemRepository
+				- setConfigurationItemSpecificationRepository
+				- setInputOutputRepository
+				- setKnownIssueRepository
+				- setScenarioRepository
+				- setServiceRepository
+				- setTrainingRepository
+		stateService:
+			class: ITILSimulator\Services\StateService
+			setup:
+				- setWorkflowActivitySpecificationRepository
+				- setServiceSpecificationRepository
+				- setConfigurationItemSpecificationRepository
+		sessionService:
+			class: ITILSimulator\Services\SessionService
+			setup:
+				- setTrainingStepRepository
+				- setTrainingService
+				- setStateService
+				- setSessionRepository
+				- setEventManager
+		workflowService:
+			class: ITILSimulator\Services\WorkflowService
+			setup:
+				- setWorkflowActivityRepository
+				- setWorkflowActivitySpecificationRepository
+				- setWorkflowRepository
+		artifactService:
+			class: ITILSimulator\Services\ArtifactService
+			setup:
+				- setCategoriesRepository
+				- setConfiguration
+				- setEventManager
+				- setEventsRepository
+				- setIncidentsRepository
+				- setProblemsRepository
+		designService:
+			class: ITILSimulator\Services\DesignService
+			setup:
+				- setDesignResultRepository
+				- setConfiguration
+
+	factories:
+
+	gettextTranslator:
+		lang: cz
+		files:
+			trainer: %appDir%/lang/trainer # for module Front and other non-specified modules
+			creator: %appDir%/lang/creator # for module Admin
+		layout: horizontal # or: vertical
+		height: 450
+
+production < common:
+
+development < common:

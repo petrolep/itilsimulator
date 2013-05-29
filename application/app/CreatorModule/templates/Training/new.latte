@@ -1,0 +1,33 @@
+{block #content}
+    <div class="page-inner">
+      <h1 class="title">{_'Create a new training'}</h1>
+
+      {snippet trainingForm}
+        {form trainingForm, style => 'min-width: 500px'}
+          <ul class="errors" n:if="$form->hasErrors()">
+            <li n:foreach="$form->errors as $error">{$error}</li>
+          </ul>
+
+          <div class="w70p item">
+            {label name /}
+            {input name, class => 'prologue'}
+          </div>
+          <div class="item">
+            {input isPublished} {label isPublished/} &nbsp; &nbsp;
+            {input isPublic} {label isPublic/}
+          </div>
+          <div class="clear item">
+            {label shortDescription /}
+            {input shortDescription}
+          </div>
+          <div class="item">
+            {label description /}
+            {input description}
+          </div>
+          <div class="item">
+            {input submit} {input cancel}
+          </div>
+        {/form}
+      {/snippet}
+    </div>
+{/block}

@@ -1,0 +1,79 @@
+{block #content}
+  <div class="page-inner">
+    <div class="scenario-evaluation fr">
+      <span n:if="$totalPoints" class="points">{_'%s points', $totalPoints}</span>
+      <span n:if="$totalBudget" class="budget">{$totalBudget|currency}</span>
+    </div>
+
+    <h1>{_'Training'} {$training->name}</h1>
+    <div class="w70p">
+      <p class="prologue" n:if="$training->shortDescription"}>{$training->shortDescription}</p>
+      <p n:if="$training->description" class="description">{!$training->description|escape|nl2br}</p>
+    </div>
+
+    <div n:if="isset($showFinishedTraining) && $showFinishedTraining" class="highlight-box training-finished">
+      <h2><strong>{_'Congrats, whole training finished!'}</strong></h2>
+      <div class="scenario-evaluation">
+        {_'Your final balance is'}
+        <span class="points">{_'%s points', $totalPoints}</span> {_'and'}
+        <span class="budget">{$totalBudget|currency}</span>
+      </div>
+    </div>
+
+    <div n:if="isset($showFinishedScenario) && $showFinishedScenario" class="highlight-box color scenario-finished margin10">
+      <h2>{_'Scenario %s finished!', $finishedScenario->name}</h2>
+      <p n:if="$results && $results->budget >= 0" class="prologue">{_'You received %s points and earned %s!', (int)$results->evaluationPoints, $template->currency($results->budget)}</p>
+      {if $results && $results->budget < 0}
+        <p n:if="$finishedScenario->isDesign" class="prologue">{_'You received %s points and spent %s for purchasing the service. Now it`s time to earn it back in service operation!', (int)$results->evaluationPoints, $template->currency($results->budget)}</p>
+        <p n:if="!$finishedScenario->isDesign" class="prologue">{_'You received %s points and lost %s!', (int)$results->evaluationPoints, $template->currency($results->budget)}</p>
+      {/if}
+    </div>
+
+    <h2>{_'Scenarios'}</h2>
+
+    <div n:if="!$startedScenarios" class="highlight-box color margin10">
+      Scénáře doporučuji spustit v uvedeném pořadí, tj. začít Návrhem a po dokončení spustit Provoz.
+    </div>
+
+    <ul class="task-list trainings-list">
+      {var isFirstEmpty => true}
+      <li n:foreach="$training->scenarios as $scenario" class="{if !isset($startedScenarios[$scenario->id]) || !$startedScenarios[$scenario->id]->isFinished}clickable {else}finished {/if}item {if isset($startedScenarios[$scenario->id])}active{/if}">
+
+        <div style="width:200px; float: right; text-align: center;">
+          <a n:if="!isset($startedScenarios[$scenario->id])" class="large link btn-link{if (!isset($startedScenarios) || !$startedScenarios || $isFirstEmpty)} cta{/if}" href="{link start scenarioId => $scenario->id}">{_'start scenario'}</a>
+          <a n:if="isset($startedScenarios[$scenario->id]) && !$startedScenarios[$scenario->id]->isFinished" class="large link btn-link cta" href="{link start scenarioId => $scenario->id}">{_'continue scenario'}</a>
+        </div>
+        
+        <div style="margin-right: 220px;">
+          <h3>
+            {if !isset($startedScenarios[$scenario->id]) || !$startedScenarios[$scenario->id]->isFinished}
+              <a href="{link start scenarioId => $scenario->id}" title="{_'start scenario'}">
+                {$scenario->name}
+              </a>
+              {var isFirstEmpty => false}
+            {else}
+              {$scenario->name}
+            {/if}
+            <span n:if="isset($startedScenarios[$scenario->id]) && $startedScenarios[$scenario->id]->isFinished" class="first label training-status-finished">{_'Finished'}</span>
+          </h3>
+
+          {if isset($startedScenarios[$scenario->id]) && $startedScenarios[$scenario->id]->isFinished}
+            <div class="scenario-evaluation">
+              <span n:if="$startedScenarios[$scenario->id]->evaluationPoints" class="points">{_'%s points', $startedScenarios[$scenario->id]->evaluationPoints}</span>
+              <span n:if="$startedScenarios[$scenario->id]->budget" class="budget">{$startedScenarios[$scenario->id]->budget|currency}</span>
+            </div>
+
+          {else}
+            <p class="note" n:if="$scenario->initialBudget">{_'Initial budget:'} {$scenario->initialBudget|currency}</p>
+          {/if}
+
+          <div n:if="isset($startedScenarios[$scenario->id]) && !$startedScenarios[$scenario->id]->isFinished" class="note">
+            {_'last activity'} {$startedScenarios[$scenario->id]->dateEnd|date:'d.m.Y H:i'}
+          </div>
+        
+          <p n:if="$scenario->description" class="description">{$scenario->description}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+{/block}

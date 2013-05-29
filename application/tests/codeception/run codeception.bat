@@ -1,0 +1,1 @@
+php codecept.phar run

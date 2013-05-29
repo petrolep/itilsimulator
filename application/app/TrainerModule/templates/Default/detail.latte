@@ -1,0 +1,46 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Training'} {$training->name}</h1>
+    <a class="back-link" href="{link default:default}">{_'back to list'}</a>
+
+    <div class="clear"></div>
+
+    <div class="w70p fl">
+      <div class="prologue" n:if="$training->shortDescription">{$training->shortDescription}</div>
+    </div>
+    
+    <div class="w30p fr center margin10">
+      <a n:if="$canBeStarted" class="link btn-link huge cta" href="{link dashboard:start $training->id}">{_'Start this training'}</a>
+    </div>
+
+    <div class="clear cols cols2">
+      <div class="col">
+        {if $training->description}
+          <div class="description">
+            {!$training->description|escape|nl2br}
+          </div>
+        {/if}
+
+        <div class="highlight-box color center margin10">
+          <div n:if="$canBeStarted" class="margin10 center"><br><a class="link btn-link huge cta" href="{link dashboard:start $training->id}">{_'Start this training'}</a></div><br>
+        </div>
+      </div>
+
+      <div class="col">
+        <h2>{_'Scenarios'}</h2>
+
+        <div n:inner-foreach="$training->scenarios as $scenario" class="task-list trainings-list">
+          <div class="item">
+            <h3>{$scenario->name}</h3>
+            <p class="note" n:if="$scenario->initialBudget">{_'Initial budget:'} {$scenario->initialBudget|currency}</p>
+            <p class="description" n:if="$scenario->description">{$scenario->description}</p>
+          </div>
+        </div>
+
+        <div n:if="!$training->scenarios->count()">
+          <em>Tento výcvik nemá žádné scénáře</em>
+        </div>
+      </div>
+    </div>
+  </div>
+{/block}

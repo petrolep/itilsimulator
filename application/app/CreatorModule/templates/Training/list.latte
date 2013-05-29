@@ -1,0 +1,36 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Trainings'} <a class="link large new-link" href="{link new}">{_'create a new training'}</a></h1>
+    <div class="w70p fl">
+      <h2 class="first">{_'My trainings'}</h2>
+      {snippet trainingsList}
+        <div n:if="!$trainings" class="highlight-box color with-icon" style="background-image: url({$baseUri}/images/tutorial-design.png)">
+          <h3>Ideální čas vytvořit svůj první výcvik</h3>
+          <p class="prologue">Vytvoření výcviku je jednoduché. Stačí kliknout na tlačítko <a href="{link new}" class="ajax-dialog-edit">{_'create a new training'}</a> a uvést několik základních údajů :)</p>
+        </div>
+
+        <div class="task-list trainings-list">
+          <div class="clickable item{if $training->isPublished} active{/if}" n:foreach="$trainings as $training">
+            <h3>
+              <a href="{link detail $training->id}">{$training->name}</a>
+
+              <a n:if="$training->isPublished" href="{link publish! id => $training->id, isPublished => false, list => true}" class="ajax label first training-published">{_'Published'}</a>
+              <a n:if="!$training->isPublished" href="{link publish! id => $training->id, isPublished => true, list => true}" class="ajax label first training-not-published">{_'Not published'}</a>
+
+              <a n:if="$training->isPublic" href="{link visibility! id => $training->id, isPublic => false, list => true}" class="ajax label training-public">{_'Public'}</a>
+              <a n:if="!$training->isPublic" href="{link visibility! id => $training->id, isPublic => true, list => true}" class="ajax label training-private">{_'Private'}</a>
+            </h3>
+
+            <p class="description">{$training->shortDescription}</p>
+            <!--a class="link btn-link large" href="{link detail $training->id}">Show detail</a-->
+          </div>
+        </div>
+      {/snippet}
+      
+      <div class="center margin10">
+        <a class="link btn-link huge cta ajax-dialog-edit" href="{link new}">{_'create a new training'}</a>
+      </div>
+    </div>
+    <div class="clear1px"></div>
+  </div>
+{/block}

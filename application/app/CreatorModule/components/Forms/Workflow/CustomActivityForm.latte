@@ -1,0 +1,48 @@
+{form activityForm, class => "ajax", style => 'min-width: 800px'}
+  <span class="title">{_'Edit custom activity'}</span>
+  <ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+  </ul>
+
+  <div class="item">
+    {label description /}
+    {input description}
+  </div>
+
+  <div id="wf-custom-behavioral-tabs">
+    <ul class="tabs small">
+      <li><a href="#wf-onEvent">onEvent</a></li>
+      <li><a href="#wf-onStart">onStart</a></li>
+      <li><a href="#wf-onFlow">onFlow</a></li>
+      <li><a href="#wf-onFinish">onFinish</a></li>
+      <li><a href="#wf-onCancel">onCancel</a></li>
+    </ul>
+    <div class="margin10">
+      <div class="item" id="wf-onEvent">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onEventRaw', type => 'activity.onEvent', class => 'xx-large'}
+      </div>
+
+      <div class="item" id="wf-onStart">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onStartRaw', type => 'activity.onStart', class => 'xx-large'}
+      </div>
+
+      <div class="item" id="wf-onFlow">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onFlowRaw', type => 'activity.onFlow', class => 'xx-large'}
+      </div>
+
+      <div class="item" id="wf-onFinish">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onFinishRaw', type => 'activity.onFinish', class => 'xx-large'}
+      </div>
+
+      <div class="item" id="wf-onCancel">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onCancelRaw', type => 'activity.onCancel', class => 'xx-large'}
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    {input save} {_'or'} <a href="" onclick="return itil.dialog.hide(true);">{_'Cancel'}</a>
+  </div>
+
+  <script type="text/javascript">itil.tabs($('#wf-custom-behavioral-tabs .tabs'));</script>
+{/form}

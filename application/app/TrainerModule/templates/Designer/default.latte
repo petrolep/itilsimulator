@@ -1,0 +1,157 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Design service'} {$scenario->designService->name}</h1>
+    <p n:if="$scenario->description" class="prologue">{!$scenario->description|escape|nl2br}</p>
+
+    {include './../../../templates/_designer.latte'}
+
+    <div class="w65p fl">
+      <div n:if="$showSolution" class="service-designer-solution">
+        <div n:if="$isDesignValid" class="highlight-box scenario-finished">
+          <h2>{_'Design successful'}</h2>
+          <p class="prologue">{_'Your design will require initial investment of %s and then its operation will cost you %s.', $template->currency($purchaseCosts), $template->currency($operationCosts)}</p>
+          <p class="margin10">{_'If you are satisfied with your design, you can submit the solution. Or you can make any changes to improve it.'}</p>
+          <a class="link btn-link cta huge" href="#" id="finalSaveLink">{_'Submit solution'}</a>
+        </div>
+
+        <div n:if="$errors" class="highlight-box">
+          <h2>{_'Please check the following errors'}</h2>
+          <ul class="errors">
+            <li n:foreach="$errors as $error">{$error}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="description expandable">
+        <div n:if="$scenario->detailDescription" class="item">
+          <h2>{_'Task'} <span class="link new-link" href="#">{_'expand'}</span></h2>
+          <div class="expand {if !$showSolution}expanded{/if}">
+            {!$scenario->detailDescription|escape|nl2br}
+
+            <div n:if="$scenario->designService->description" class="description">
+              <h2>{_'Service description'}</h2>
+              {$scenario->designService->description}
+            </div>
+            <span class="link btn-link">{_'close'}</span>
+          </div>
+        </div>
+
+        <div class="workflow-designer service-designer">
+          {foreach $configurationItems as $configurationItem}
+            {!$configurationItem}
+          {/foreach}
+        </div>
+      </div>
+    </div>
+    <div class="w30p fr">
+      <h2>{_'Your solution'}</h2>
+      {snippet continuesCheck}
+        {if isset($isDesignValid) && $isDesignValid}
+          <p class="prologue center">{_'Your design will require initial investment of %s and then its operation will cost you %s.', $template->currency($purchaseCosts), $template->currency($operationCosts)}</p>
+        {else}
+          <p class="center"><em>{_'There are still some missing connections in your design.'}</em></p>
+        {/if}
+      {/snippet}
+
+      <div class="center margin10">
+        <a class="link btn-link cta huge" href="#" id="saveLink">{_'Check my solution'}</a>
+      </div>
+
+      <h2>{_'CI overview'} <a class="new-link link" href="#" onclick="$('.designer-ci-list .expand').slideDown();return false;">{_'expand'}</a> </h2>
+      <ul class="designer-ci-list expandable" n:inner-foreach="$configurationItemsRaw as $configurationItem">
+        <li class="item">
+          <strong>{$configurationItem->name}</strong><br>
+          <span class="prices">
+            <span title="{_'purchase costs'}">{$configurationItem->defaultSpecification->purchaseCosts|currency}</span> /
+            <span title="{_'operation costs'}">{$configurationItem->defaultSpecification->operationalCosts|currency}</span>
+          </span>
+          <div class="expand">
+            <ul n:if="$configurationItem->inputs->count()" class="inputs">
+              <li n:foreach="$configurationItem->inputs as $input">{$input->name}</li>
+            </ul>
+            <ul n:if="$configurationItem->outputs->count()" class="outputs">
+              <li n:foreach="$configurationItem->outputs as $output">{$output->name}</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+      <div class="clear1px margin10"></div>
+      <h2>Nápověda</h2>
+      <div class="center">
+        <em>Tažením myší přeskládejte a pospojujte konfigurační položky vlevo tak, aby vytvořily požadovanou službu. Po vytvoření návrhu klikněte na <em>{_'Check my solution'}</em> a nechte si své řešení zkontrolovat.</em><br><br><strong><a id="designer-help-link" href="#help" onclick="$('.dialog-help').clone().appendTo('body');var d = $('.dialog-help:eq(1)'); d.show();itil.dialog.show(d); return false;" class="link btn-link">Ukázka návrhu</a></strong>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+
+  <div id="solutionForm" class="display-none">{control solutionForm}</div>
+
+  <div class="dialog-help display-none">
+    <h2 class="title">Nápověda</h2>
+    <p class="prologue">Cílem je vytvořit vazby mezi jednotlivými konfiguračními položkami tak, aby byly splněné vyžadované vstupy. Pozor, ne všechny položky je nutné pro realizaci služby použít. Také některé výstupy není nutné použít a lze je nechat bez vazby. Vycházejte ze zadání a popisků u jednotlivých konfiguračních položek.</p>
+    <img src="{$baseUri}/images/help/service-design.png" alt="Ukázka vazeb" width="100%"/>
+    <div class="buttons">
+      <a class="close" href="#">{_'Close'}</a>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      connections = [];
+      {foreach $connections as $connection}
+      connections.push({
+        'id': {$connection->id},
+        'title' : '',
+        'source': {$presenter->generateActivityHTMLId($connection->source)},
+        'target': {$presenter->generateActivityHTMLId($connection->target)}
+      });
+      {/foreach}
+
+      var removeConnection = function (c) {
+        if (confirm({_'Really delete the connection?'})) jsPlumb.detach(c);
+      };
+      var designerConfiguration = {
+        connections: connections,
+        onConnectionDblClick: removeConnection,
+        onConnectionClick: removeConnection,
+        useDatabaseConnections: false,
+        submitOnlyUpdated: false
+      };
+
+      designer = new itil.workflow.Designer($('.workflow-designer'), designerConfiguration);
+      designer.init();
+
+      var form = $('form', '#solutionForm');
+
+      var populateForm = function(isFinal) {
+        $('input[name=relations]', form).val(JSON.stringify(designer.getState()));
+        $('input[name=positions]', form).val(JSON.stringify(designer.getPositions()));
+        if (isFinal) {
+          $('input[name=final]', form).val(1);
+        }
+      };
+
+      $('#saveLink').click(function() {
+        populateForm(false);
+        $('form', '#solutionForm').submit();
+
+        return false;
+      });
+
+      $('#finalSaveLink').click(function() {
+        populateForm(true);
+        form.submit();
+
+        return false;
+      });
+
+      setInterval(function() {
+        populateForm(false);
+        $.post(form.attr('action'), form.serialize());
+      }, 5000);
+    });
+  </script>
+{/block}

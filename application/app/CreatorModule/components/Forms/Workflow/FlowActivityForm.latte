@@ -1,0 +1,35 @@
+{form activityForm, class => "ajax", style => 'min-width: 800px'}
+  <span class="title">{_'Edit flow'}</span>
+  <ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+  </ul>
+
+  <div class="item">
+    {label description /}
+    {input description}
+  </div>
+
+  <div class="item">
+    {include './../../../templates/_editor.latte', _form => $_form, field => 'onEventRaw', type => 'activity.onEvent', class => 'xx-large'}
+  </div>
+
+  <div class="item">
+    {include './../../../templates/_editor.latte', _form => $_form, field => 'onStartRaw', type => 'activity.onStart', class => 'large'}
+  </div>
+
+  {*
+  <div class="item behavioral-editor xx-large" id="onFlowEventTextarea">
+    {label onEventRaw /} <a class="expand" href="#">{_'expand'}</a>
+    {input onEventRaw}
+  </div>
+
+  <div class="item behavioral-editor large" id="onFlowStartTextarea">
+    {label onStartRaw /} <a class="expand" href="#">{_'expand'}</a>
+    {input onStartRaw}
+  </div>
+  *}
+
+  <div class="buttons">
+    {input save} {_'or'} <a href="" onclick="return itil.dialog.hide(true);">{_'Cancel'}</a>
+  </div>
+{/form}

@@ -1,0 +1,73 @@
+{if isset($isSaved) && $isSaved}
+  <script>itil.dialog.hide(true);</script>
+{else}
+  {form issueForm, class => 'ajax'}
+    <ul class="errors" n:if="$form->hasErrors()">
+      <li n:foreach="$form->errors as $error">{$error}</li>
+    </ul>
+
+    <div class="item code-field">
+      {label code /}
+      {input code, class => 'prologue', placeholder => 'ID'}
+    </div>
+
+    <div class="item name-field">
+      {label name /}
+      {input name, class => 'prologue'}
+    </div>
+
+    <div class="cols cols2 clear">
+      <div class="col">
+        <div class="item">
+          {label keywords/}
+          {input keywords}
+        </div>
+      </div>
+      <div class="col">
+        <div class="item">
+          {label category/}
+          {input category}
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      {label description/}
+      {input description}
+    </div>
+
+    <div class="cols cols2">
+      <div class="col">
+        <div class="item">
+          {label workaround/}
+          {input workaround}
+        </div>
+      </div>
+      <div class="col">
+        <div class="item">
+          {label fix/}
+          {input fix}
+        </div>
+      </div>
+    </div>
+
+    <div class="cols cols2">
+      <div class="col">
+        <div class="item">
+          {label workaroundCost/}
+          {input workaroundCost}
+        </div>
+      </div>
+      <div class="col">
+        <div class="item">
+          {label fixCost/}
+          {input fixCost}
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      {input save} {_'or'} <a href="{link training:detail, id => $training->id}"{if $isAjax} onclick="return itil.dialog.hide(true);"{/if}>{_'Cancel'}</a>
+    </div>
+  {/form}
+{/if}

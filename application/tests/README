@@ -1,0 +1,22 @@
+Unit testy
+----------
+
+Adresář "unit".
+Standardní PHPUnit, lze spouštět z IDE.
+
+Akceptační a integrační testy
+-----------------------------
+
+Adresář "codeception"
+Realizováno s využitím nástroje http://codeception.com
+Konfigurace pomocí "acceptance.suite.yml" resp. "unit.suite.yml".
+
+acceptance:
+  - akceptační testy
+  - simulace pomocí PhpBrowser nebo Selenium
+  - pro Selenium je třeba mít spuštění Selenium RC server
+
+unit:
+  - integrační testy pro testování služeb v podobě unit testů s napojením na databázi
+  - umožňuje inicializaci databáze z inicializačního SQL skriptu
+  - pro testování doporučeno používat testovací databázi

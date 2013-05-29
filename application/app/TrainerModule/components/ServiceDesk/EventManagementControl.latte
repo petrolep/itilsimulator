@@ -1,0 +1,76 @@
+
+  {snippet detailPanel}
+  {if isset($event)}
+    <div class="to-dialog">
+      {snippet detailPanelInner}
+        <span class="title">{_'Event detail'}</span>
+        <div class="event-detail">
+          <table class="formatted">
+            <tr>
+              <th>{_'Date:'}</th>
+              <td>{$event->date|date:'j.n.Y H:i:s'}</td>
+              <th>{_'Description:'}</th>
+              <td>{$event->description}</td>
+            </tr>
+            <tr>
+              <th>{_'Source:'}</th>
+              <td>{$event->source}</td>
+              <th>{_'Status:'}</th>
+              <td>{if $event->isArchived}{_'archived'}{else}{_'new'}{/if}</td>
+            </tr>
+            <tr>
+              <th>{_'Event type:'}</th>
+              <td>{$event->code}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="buttons">
+          <a n:if="!$event->isArchived" href="{link archive id => $event->id}" class="button ajax close">{_'archive event'}</a>
+          <a href="" class="button close">{_'close'}</a>
+        </div>
+      {/snippet}
+    </div>
+  {/if}
+  {/snippet}
+
+  <div class="list-wrapper">
+  {snippet eventsPanel}
+    <table class="list">
+      <thead>
+      <tr>
+        <th width="50">{_'Status'}</th>
+        <th>{_'Date and time'}</th>
+        <th>{_'Source'}</th>
+        <th>{_'Event type'}</th>
+        <th>{_'Detail'}</th>
+      </tr>
+      </thead>
+    {foreach $events as $event}
+      <tr>
+        <td>{if $event->isArchived}<span class="label event-archived">{_'archived'}</span>{else}<span class="label event-new">{_'new'}</span>{/if}</td>
+        <td>{$event->date|date:'d.m.Y H:i:s'}</td>
+        <td>{$event->source}</td>
+        <td>{$event->code}</td>
+        <td><a class="ajax link btn-link service-desk-link" href="{link detail id => $event->id}">{_'detail'}</a></td>
+      </tr>
+    {/foreach}
+    </table>
+  {/snippet}
+  </div>
+
+  <div class="list-footer">
+    <div class="fr">
+      {snippet eventsPaginator}
+        {control paginator}
+      {/snippet}
+    </div>
+    <div class="filter">
+      {form filterForm, class => 'ajax'}
+        <span class="items-count">{input itemsCount} {label itemsCount /}</span>
+        {_'filter'} {input status} {input source, placeholder => $template->translate('source')} {input filter}
+      {/form}
+    </div>
+  </div>

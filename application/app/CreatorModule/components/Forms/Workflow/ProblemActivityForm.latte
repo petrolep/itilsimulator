@@ -1,0 +1,54 @@
+{form activityForm, class => "ajax evaluation-activity-form", style => 'min-width: 550px'}
+  <span class="title">{_'Edit problem'}</span>
+  <ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+  </ul>
+
+  <table>
+    <tr>
+      <td colspan="4">
+        <div class="item">
+          {label referenceNumber /}
+          {input referenceNumber}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="item">
+          {label priority /}
+          {input priority}
+        </div>
+      </td>
+      <td>
+        <div class="item">
+          {label problemOwner /}
+          {input problemOwner}
+        </div>
+      </td>
+      <td>
+        <div class="item">
+          {label category /}
+          {input category}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="item">
+          {label symptoms /}
+          {input symptoms}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        {include './../../../templates/_editor.latte', _form => $_form, field => 'onEventRaw', type => 'activity.onEvent'}
+      </td>
+    </tr>
+  </table>
+
+  <div class="buttons">
+    {input save} {_'or'} <a href="" onclick="return itil.dialog.hide(true);">{_'Cancel'}</a>
+  </div>
+{/form}

@@ -1,0 +1,154 @@
+{define #incidentStatus}
+  {if $incident->status == $STATUS_NEW}<span class="label incident-new">{_'new'}</span>
+  {elseif $incident->status == $STATUS_ACCEPTED}<span class="label incident-accepted">{_'accepted'}</span>
+  {elseif $incident->status == $STATUS_ASSIGNED}<span class="label incident-assigned">{_'assigned'}</span>
+  {elseif $incident->status == $STATUS_IN_PROGRESS}<span class="label incident-in-progress">{_'in progress'}</span>
+  {elseif $incident->status == $STATUS_SOLVED}<span class="label incident-solved">{_'solved'}</span>
+  {elseif $incident->status == $STATUS_CLOSED}<span class="label incident-closed">{_'closed'}</span>
+  {/if}
+{/define}
+
+  {snippet detailPanel}
+  {if isset($incident)}
+    <div class="to-dialog">
+      {snippet detailPanelInner}
+        <span class="title">
+          {_'Incident record'}
+          {include #incidentStatus, incident => $incident}
+        </span>
+        <div class="incident-detail">
+          <table class="formatted">
+            <tr>
+              <th>{_'Date:'}</th>
+              <td>{$incident->date|date:'j.n.Y H:i:s'}</td>
+              <th>{_'Priority:'}</th>
+              <td>{$incident->priority|priority|translate}</td>
+            </tr>
+            <tr>
+              <th>{_'Reference number:'}</th>
+              <td>{$incident->referenceNumber}</td>
+              <th>{_'Urgency:'}</th>
+              <td>{$incident->urgency|priority|translate}</td>
+            </tr>
+            <tr>
+              <th>{_'Level:'}</th>
+              <td>{$incident->level}</td>
+              <th>{_'Impact:'}</th>
+              <td>{$incident->impact|priority|translate}</td>
+            </tr>
+            <tr>
+              <th>{_'Major incident:'}</th>
+              <td>{_($incident->isMajor ? 'yes' : 'no')}</td>
+              <th>{_'Affected customers:'}</th>
+              <td colspan="3">{_'all'}</td>
+            </tr>
+            <tr>
+              <th>{_'Symptoms:'}</th>
+              <td colspan="3">{!$incident->symptoms|escape|nl2br}</td>
+            </tr>
+            <tr>
+              <th>{_'History:'}</th>
+              <td colspan="3">{!$incident->history|escape|nl2br}</td>
+            </tr>
+          </table>
+        </div>
+
+        {if $allowSolve}
+          <div class="solution-panel display-none">
+            <h3>{_'Apply solution'}</h3>
+            {if $solutionsAvailable}
+            {snippet solutionForm}
+              {if isset($solution) && $solution}
+                <div class="to-dialog">
+                  <div class="center">
+                    <p class="title">{_'Please confirm applying solution %s', $solution->name}</p>
+                    <p n:if="$solution->fix">{_'Fix is available and will cost you %s.', $template->currency($solution->fixCost)}</p>
+                    <p n:if="$solution->workaround">{_'Workaround is available and will cost you %s.', $template->currency($solution->fixCost)}</p>
+
+                    <div class="margin10">
+                      <a n:if="$solution->fix" href="{link applySolution! id => $incidentId, solution => $solution->id, fix => true}" class="ajax close link btn-link large cta">{_'Apply fix'}</a>
+                      <a n:if="$solution->workaround" href="{link applySolution! id => $incidentId, solution => $solution->id}" class="ajax close link btn-link large cta">{_'Apply workaround'}</a>
+                      <a class="close link btn-link large" href="#">{_'Cancel'}</a>
+                    </div>
+                  </div>
+                </div>
+              {/if}
+              {form solutionForm, class => ajax}
+                {_'Details of known errors can be found in Known Error Database.'}
+                <ul class="errors" n:if="$form->hasErrors()">
+                  <li n:foreach="$form->errors as $error">{$error}</li>
+                </ul>
+                <table>
+                  <tr>
+                    <td class="item">{input id}</td>
+                    <td class="item" width="100">{input save}</td>
+                  </tr>
+                </table>
+              {/form}
+            {/snippet}
+            {else}
+              {_'No known solutions available.'}
+            {/if}
+          </div>
+        {/if}
+
+        <div class="buttons">
+          <a n:if="$allowSolve && $allowEscalate" class="ajax close" href="{link escalate! id => $incident->id}">{_'Escalate'}</a>
+          <a n:if="$allowSolve && !$allowEscalate" href="" onclick="alert({_'This incident can not be escalated.'});return false;">{_'Escalate'}</a>
+          <a n:if="$allowSolve" href="#" onclick="$('.solution-panel').slideToggle();return false;">{_'Apply known solution'}</a>
+
+          <a n:if="$allowClose" href="{link close! id => $incident->id}" class="ajax">{_'Close incident'}</a>
+          <a n:if="$allowAccept" class="ajax" href="{link accept! id => $incident->id}">{_'Accept incident'}</a>
+
+          <a class="button close" href="">{_'Close'}</a>
+        </div>
+
+      {/snippet}
+    </div>
+  {/if}
+  {/snippet}
+
+  {snippet incidentsPanel}
+    <table class="list">
+      <thead>
+      <tr>
+        <th width="50">{_'Status'}</th>
+        <th>{_'Date and time'}</th>
+        <th>{_'Ref. No.'}</th>
+        <th>{_'Priority'}</th>
+        {*<th>{_'Affected user'}</th>*}
+        <th>{_'Category'}</th>
+        <th>{_'TT response'}</th>
+        <th>{_'TT resolve'}</th>
+        <th>{_'Detail'}</th>
+      </tr>
+      </thead>
+    {foreach $incidents as $incident}
+      <tr>
+        <td>{include #incidentStatus, incident => $incident}</td>
+        <td>{$incident->date|date:'j.n.Y H:i:s'}</td>
+        <td>{$incident->referenceNumber}</td>
+        <td>{$incident->priority|priority|translate}</td>
+        {*<td></td>*}
+        <td>{$incident->category ? $incident->category->name : ''}</td>
+        <td{if $incident->timeToResponse} class="clocks" data-timeout="{$incident->timeToResponse}"{/if}><span n:if="$incident->timeToResponse"></span></td>
+        <td{if $incident->timeToResolve} class="clocks" data-timeout="{$incident->timeToResolve}"{/if}><span n:if="$incident->timeToResolve"></span></td>
+        <td><a class="ajax link btn-link service-desk-link" href="{link detail id => $incident->originalId ?: $incident->id}">{_'detail'}</a></td>
+      </tr>
+    {/foreach}
+    </table>
+  {/snippet}
+
+  <div class="list-footer">
+    <div class="fr">
+      {snippet incidentsPaginator}
+        {control paginator}
+      {/snippet}
+    </div>
+    <div class="filter">
+      {form filterForm, class => 'ajax'}
+        <span class="items-count">{input itemsCount} {label itemsCount /}</span>
+        {_'filter'} {input status} {input priority} {input filter}
+      {/form}
+    </div>
+  </div>

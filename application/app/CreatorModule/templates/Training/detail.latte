@@ -1,0 +1,230 @@
+{var $masculine => 1}
+{var $feminine => 2}
+{var $neuter => 5}
+{block #content}
+  <div class="page-inner">
+
+    <h1>
+      {_'Training'} {$training->name}
+
+      <a n:if="$training->isPublic" href="{link visibility! id => $training->id, isPublic => false}" class="label training-public">{_'Public'}</a>
+      <a n:if="!$training->isPublic" href="{link visibility! id => $training->id, isPublic => true}" class="label training-private">{_'Private'}</a>
+
+      <a n:if="$training->isPublished" href="{link publish! id => $training->id, isPublished => false}" class="label training-published">{_'Published'}</a>
+      <a n:if="!$training->isPublished" href="{link publish! id => $training->id, isPublished => true}" class="label training-not-published">{_'Not published'}</a>
+
+      <a class="link edit-link" href="{link edit, id => $training->id}">{_'edit'}</a>
+    </h1>
+    <a class="back-link" href="{link list}">{_'back to trainings'}</a>
+
+    <div class="prologue" n:if="$training->shortDescription">{$training->shortDescription}</div>
+    {if $training->description}
+      {!$training->description|escape|nl2br}
+    {else}
+      <p class="prologue"><em>{_'The trainig does not have a discription. You should add some.'}</em></p>
+    {/if}
+
+    <div class="cols cols2">
+      <div class="col">
+        <div class="creator-panel scenarios">
+          <div class="header">
+            <h2>{_'Scenarios'} <a href="{link newScenario trainingId => $training->id}" class="link new-link">{_'create new', $masculine}</a></h2>
+            <p>Vytvořte scénáře pro svůj výcvik. Každý scénář vykonává definované workflow na přiřazených službách.</p>
+          </div>
+
+          {snippet scenariosList}
+            <div n:if="$training->scenarios->count()" n:inner-foreach="$training->scenarios as $scenario" class="list">
+            <div class="item">
+              <h3>
+                {$scenario->name}
+                <a class="link edit-link icon-only" href="{link editScenario, id => $scenario->id}"><span>{_'edit'}</span></a>
+              </h3>
+
+              <p n:if="$scenario->initialBudget" class="note">{_'Initial budget:'} {$scenario->initialBudget|currency}</p>
+              <p n:if="$scenario->description" class="description">{$scenario->description}</p>
+
+              <div class="cols cols2">
+                <div n:if="$scenario->isDesign" class="col creator-training-scenario services">
+                  <h4>{_'Designing service'}<a href="" class="link new-link services-new-link">{_'select service'}</a></h4>
+                  <div class="new-services-selection display-none">
+                    {_'Select service'}: {foreach $training->services as $service}
+                      <a href="{link assignDesignService! scenarioId => $scenario->id, serviceId => $service->id}" class="ajax">{$service->name}</a>
+                    {/foreach}
+                  </div>
+
+                  <ul>
+                    <li n:if="$scenario->designService">{$scenario->designService->name}</li>
+                    <li n:if="!$scenario->designService"><em>{_'no service selected'}</em></li>
+                  </ul>
+                </div>
+
+                <div class="col creator-training-scenario services">
+                  <?php $usedServices = array_map(function($service) { return $service->id; }, $scenario->services->toArray()) ?>
+                  <h4>{_'Services'} <a href="" class="link new-link services-new-link" n:if="count($usedServices) != count($training->services)">{_'assign new'}</a></h4>
+                  <div class="new-services-selection display-none" n:if="count($usedServices) != count($training->services)">
+                    {_'Assign new'}: {foreach $training->services as $service}
+                      {continueIf in_array($service->id, $usedServices)}
+                      <a href="{link assignService! scenarioId => $scenario->id, serviceId => $service->id}" class="ajax">{$service->name}</a>
+                    {/foreach}
+                  </div>
+
+                  <ul>
+                    <li n:foreach="$scenario->services as $service" class="hidden-icons">
+                      {$service->name}
+                      <a href="{link unassignService! scenarioId => $scenario->id, serviceId => $service->id}" class="ajax link delete-link only-icon"><span><span>{_'unassign'}</span></span></a>
+                    </li>
+                    <li n:if="!$scenario->services->count()"><em>{_'no services assigned'}</em></li>
+                  </ul>
+                </div>
+
+                <div n:if="!$scenario->isDesign" class="col creator-training-scenario workflows">
+                  <h4>{_'Workflows'} <a href="{link workflow:designer, 'new' => $scenario->id}" class="link new-link">{_'assign new'}</a></h4>
+                  <ul>
+                    <li n:foreach="$scenario->workflows as $workflow" class="hidden-icons">
+                      <a href="{link workflow:designer id => $workflow->id}">{$workflow->name}</a>
+                      <a href="{link deleteWorkflow! workflowId => $workflow->id}" class="ajax link delete-link only-icon" data-confirm="{_'Really delete?'}"><span><span>{_'delete'}</span></span></a>
+                    </li>
+                    <li n:if="!$scenario->workflows->count()"><em>{_'no workflow created'}</em></li>
+                  </ul>
+                </div>
+              </div> {* /.cols2 *}
+            </div> {* /.item *}
+          </div> {* /.list *}
+
+            <div n:if="!$training->scenarios->count()" class="highlight-box color">
+              <h3>Vytvořte svůj první scénář</h3>
+              <p class="prologue">Každý výcvik obsahuje několik scénářů. Scénáře jsou navzájem nezávislé, ale jejich hodnocení se projevuje do celkového hodnocení výcviku.</p>
+              <p class="prologue">Scénář může být buď pro návrh služby, nebo pro provoz služby. U&nbsp;návrhu služby musíte přiřadit jednu službu, kterou má uživatel navrhnout. U&nbsp;provozu pak musíte vytvořit alespoň jedno workflow, ve kterém definujete úkoly, které má uživatel plnit.</p>
+              <p class="description">Při vytváření scénáře vyberete, zda se jedná o scénář návrhu nebo provozu služeb. Při návrhu služeb musíte vybrat jednu navrhovanou službu; můžete přiřadit i další služby, jejich konfigurační položky pak slouží jako alternativy v návrhu. V případě provozu služeb určujete počáteční finanční rozpočet, který má uživatel k dispozici.</p>
+              <div class="margin10 center">
+                <a class="btn-link link huge cta" href="{link service:new trainingId => $training->id}">nová služba</a>
+                <a class="btn-link link huge cta ajax-dialog-edit" href="{link newScenario trainingId => $training->id}">nový scénář</a>
+              </div>
+            </div>
+          {/snippet}
+        </div> {* /.creator-panel *}
+      </div>
+
+      <div class="col">
+        <div class="creator-panel services">
+          <div class="header">
+            <h2>{_'Services'} <a href="{link service:new trainingId => $training->id}" class="link new-link">{_'create new', $feminine}</a></h2>
+            <p>Definujte jednotlivé služby a propojení jejich konfiguračních položek.</p>
+          </div>
+
+          <div class="list" n:if="!$training->services->isEmpty()">
+            <div class="item hidden-icons" n:foreach="$training->services as $service">
+              <a href="{link Service:detail id => $service->id}">{$service->name}</a> <span class="unimportant" title="{_'Your codename'}">{$service->code}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline-form-wrapper">
+          <div class="creator-panel io">
+            <div class="header">
+              <h2>{_'Inputs & outputs'} <a href="#" class="link new-link inline-form-link">{_'create new', $masculine}</a></h2>
+              <p>Vstup a výstupy umožňují definovat vzájemné vazby mezi konfiguračními položkami.</p>
+            </div>
+
+            {snippet inputsOutputs}
+              {form inputOutputForm, class => 'ajax inline-form ' . ($form->hasErrors() ? 'invalid' : 'display-none')}
+                <ul class="errors" n:if="$form->hasErrors()">
+                  <li n:foreach="$form->errors as $error">{$error}</li>
+                </ul>
+
+                <table>
+                  <tr>
+                    <td class="item">
+                      {input name, placeholder => $template->translate('Name')}
+                    </td>
+                    <td class="item">
+                      {input code, placeholder => 'MY_IO_CODE'}
+                    </td>
+                    <td>
+                      {input save}
+                    </td>
+                  </tr>
+                </table>
+              {/form}
+
+              <div class="list" n:if="!$training->inputsOutputs->isEmpty()">
+                <div class="item hidden-icons" n:foreach="$training->inputsOutputs as $io">
+                  {$io->name} <span class="unimportant" title="{_'Your codename'}">{$io->code}</span> <a href="{link deleteInputOutput! ioId => $io->id}" class="link delete-link only-icon ajax" data-confirm="{_'Really delete?'}"><span><span>{_'delete'}</span></span></a>
+                </div>
+              </div>
+            {/snippet}
+          </div>
+        </div>
+
+        <div class="inline-form-wrapper">
+          <div class="creator-panel categories">
+            <div class="header">
+              <h2>{_'Categories'} <a href="#" class="link new-link inline-form-link">{_'create new', $feminine}</a></h2>
+              <p>Pro lepší organizaci incidentů a problémů lze využít zařazení do kategorií.</p>
+            </div>
+
+            {snippet operationCategories}
+              {form operationCategoryForm, class => 'ajax inline-form ' . ($form->hasErrors() ? 'invalid' : 'display-none')}
+                <ul class="errors" n:if="$form->hasErrors()">
+                  <li n:foreach="$form->errors as $error">{$error}</li>
+                </ul>
+
+                <table>
+                  <tr>
+                    <td class="item">
+                      {input name, placeholder => $template->translate('Name')}
+                    </td>
+                    <td>
+                      {input save}
+                    </td>
+                  </tr>
+                </table>
+              {/form}
+
+              <div class="list" n:if="!$training->operationCategories->isEmpty()">
+                <div class="item hidden-icons" n:foreach="$training->operationCategories as $category">
+                  {$category->name} <a href="{link deleteOperationCategory! categoryId => $category->id}" class="link delete-link only-icon ajax" data-confirm="{_'Really delete?'}"><span><span>{_'delete'}</span></span></a>
+                </div>
+              </div>
+            {/snippet}
+          </div>
+        </div>
+
+        <div class="creator-panel known-issues">
+          <div class="header">
+            <h2>{_'Known errors'} <a href="{link knownIssue:new, id => $training->id}" class="link new-link ajax-dialog-edit">{_'create new', $feminine}</a></h2>
+            <p>Vytvořte databázi známých chyb a naučte uživatele tuto databázi používat.</p>
+          </div>
+
+          {snippet knownIssues}
+            <div class="list" n:if="!$training->knownIssues->isEmpty()">
+              <div class="item hidden-icons" n:foreach="$training->knownIssues as $issue">
+                <a href="{link knownIssue:edit, id => $issue->id}" class="ajax-dialog-edit">{$issue->name}</a> <span class="unimportant" title="{_'Your codename'}">{$issue->code}</span> <a href="{link deleteKnownIssue! issueId => $issue->id}" class="link delete-link only-icon ajax" data-confirm="{_'Really delete?'}"><span><span>{_'delete'}</span></span></a>
+              </div>
+            </div>
+          {/snippet}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clear1px"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.services-new-link').live('click', function() {
+        $(this).parents('.col:eq(0)').find('.new-services-selection').slideToggle();
+
+        return false;
+      });
+
+      /*$('.edit-link').click(function() {
+        $.get($(this).attr('href'), function(response) {
+          itil.dialog.show(response);
+        }, 'html');
+
+        return false;
+      });*/
+    });
+  </script>
+{/block}

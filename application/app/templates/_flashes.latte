@@ -1,0 +1,6 @@
+{foreach $flashes as $flash}
+<div class="flash {$flash->type}" data-guid="{$flash->guid}">{$flash->message}</div>
+{/foreach}
+{if $flashes}
+  <script type="text/javascript">itil.flash.display();</script>
+{/if}

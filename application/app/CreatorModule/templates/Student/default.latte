@@ -1,0 +1,23 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Students of my trainings'}</h1>
+    <table class="list">
+      <thead>
+      <tr>
+        <td>#</td>
+        <td>{_'Name'}</td>
+        <td>{_'Registered'}</td>
+        <td>{_'Detail'}</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="clickable" n:foreach="$students as $student">
+        <td>{$iterator->counter}</td>
+        <td>{$student->name}</td>
+        <td>{_$student->isAnonymous ? 'no' : 'yes'}</td>
+        <td><a class="link btn-link" href="{link detail, id => $student->id}">{_'detail'}</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+{/block}

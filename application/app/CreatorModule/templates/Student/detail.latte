@@ -1,0 +1,29 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Student'} {$student->name}</h1>
+    <a class="back-link" href="{link default}">{_'back to list'}</a>
+
+    <h2>{_'Sessions'}</h2>
+    <div class="list">
+      <div class="item" n:foreach="$sessions as $session">
+        <h3>{$session->training->name} {if $session->isFinished}<span class="label training-status-finished">Finished</span>{/if}</h3>
+        <span class="note">{_'started'} {$session->dateStart|date:'d.m.Y H:i:s'}, {_'last activity'} {$session->dateEnd|date:'d.m.Y H:i'}</span><br>
+
+        <ul class="progress-steps" n:inner-foreach="$session->trainingSteps as $trainingStep" n:if="$session->trainingSteps->count()">
+          <li class="step{if $trainingStep->isFinished} finished{/if}">
+            <strong>{$trainingStep->scenario->name}</strong>
+            {if $trainingStep->lastValidScenarioStep}
+              {_'%s points', $trainingStep->evaluationPoints}, {$trainingStep->budget|currency}
+            {/if}
+            {if isset($paths[$trainingStep->scenario->id])}<br>
+              <span n:foreach="$paths[$trainingStep->scenario->id] as $specification">
+                {$specification->workflowActivity->__toString()}
+                {$specification->workflowActivity->description}{if !$iterator->isLast()} &rarr; <br>{/if}
+              </span>
+            {/if}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{/block}

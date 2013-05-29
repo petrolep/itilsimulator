@@ -1,0 +1,26 @@
+{extends '../../templates/@layout.latte'}
+{block #top}
+  {include './_menu.latte'}
+{/block}
+
+{block #head}
+  <link rel="stylesheet" href="{$baseUri}/js/codemirror/codemirror.css">
+  <script src="{$baseUri}/js/codemirror/codemirror.js"></script>
+  <script src="{$baseUri}/js/codemirror/show-hint.js"></script>
+  <script src="{$baseUri}/js/codemirror/javascript-hint.js"></script>
+  <script src="{$baseUri}/js/codemirror/javascript.js"></script>
+  <script type="text/javascript" src="{$baseUri}/js/training.creator.js"></script>
+  <script type="text/javascript">
+    window.app = new itil.Creator();
+    $(document).ready(app.init);
+  </script>
+{/block}
+
+{block #footer}
+  <script>
+    itil.config.resources['collapse'] = {_'collapse'};
+    itil.config.resources['expand'] = {_'expand'};
+    itil.config.resources['flow.dragToTarget'] = {_'drag to target'};
+    itil.config.resources['flow.new'] = {_'new flow'};
+  </script>
+{/block}

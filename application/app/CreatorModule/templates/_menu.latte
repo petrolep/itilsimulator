@@ -1,0 +1,9 @@
+{block #top}
+  <a class="training-name" href="{link default:default}">{_'ITIL Simulator designer'}</a>
+
+  <a class="top-link trainings" href="{link training:list}">{_'trainings'}</a>
+  <a class="top-link students" href="{link student:default}">{_'students'}</a>
+  {* <a class="top-link results" href="#">{_'results'}</a> *}
+  <a n:if="$isAdmin" class="top-link users" href="{link users:default}">{_'users'}</a>
+  <a class="top-link" href="{link :trainer:training:default}">{_'training zone'}</a>
+{/block}

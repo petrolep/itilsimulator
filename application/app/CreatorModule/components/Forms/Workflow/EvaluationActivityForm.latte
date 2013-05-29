@@ -1,0 +1,20 @@
+{form activityForm, class => "ajax evaluation-activity-form"}
+  <span class="title">{_'Edit evaluation'}</span>
+  <ul class="errors" n:if="$form->hasErrors()">
+    <li n:foreach="$form->errors as $error">{$error}</li>
+  </ul>
+
+  <div class="item">
+    {label points /}
+    {input points}
+  </div>
+
+  <div class="item">
+    {label money /}
+    {input money}
+  </div>
+
+  <div class="buttons">
+    {input save} {_'or'} <a href="" onclick="return itil.dialog.hide(true);">{_'Cancel'}</a>
+  </div>
+{/form}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="2013 Petr Dvorak, http://petr-dvorak.cz">
+  <title>ITIL trenažér</title>
+  <link rel="stylesheet" href="{$basePath}/css/screen.css" media="screen,projection,tv">
+
+  <script src="{$basePath}/js/jquery.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/jquery.nette.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/jquery.splitter.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/netteForms.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/jquery.nette.ajax.forms.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/training.config.js" type="text/javascript"></script>
+  <script src="{$basePath}/js/training.js" type="text/javascript"></script>
+  {ifset #head}{include #head}{/ifset}
+</head>
+
+<body{ifset #bodyclass} class="{include #bodyclass}"{/ifset}>
+<div id="top">
+  <div class="wrapper">
+    <div class="wrapper-inner">
+      {if $user}
+        <div class="fr">
+          <a class="user" href="{link :trainer:user:default}">{$user->name}</a>
+          <div class="user-popup">
+            <a href="{link :trainer:user:myProfile}">{_'my profile'}</a>
+            <a href="{link :trainer:user:out}">{_'logout'}</a>
+          </div>
+        </div>
+      {else}
+        <div class="fr">
+          <a href="{link default:about}">{_'About website'}</a>
+        </div>
+      {/if}
+
+      {ifset #top}
+        {include #top}
+      {else}
+        <a class="training-name" href="{link :trainer:default:default}">{_'ITIL simulator'}</a>
+
+        {if $user}
+          <a class="top-link homepage" href="{link :trainer:dashboard:default}">{_'my trainings'}</a>
+          {if $userIsCreator || $userIsAdmin}<a class="top-link" href="{link :creator:default:default}">{_'creator zone'}</a>{/if}
+        {/if}
+      {/ifset}
+    </div>
+  </div>
+</div>
+
+<div id="page-wrapper" class="wrapper">
+  <div id="page">
+    {snippet flashes}
+      {include './_flashes.latte' flashes => $flashes}
+    {/snippet}
+
+    {include #content}
+
+  </div>
+</div>
+
+{block #footer}{/block}
+
+</body>
+</html>

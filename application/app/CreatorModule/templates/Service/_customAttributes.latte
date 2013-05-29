@@ -1,0 +1,61 @@
+<div id="custom-attributes">
+  <a href="" class="link new-link">{_'new attribute'}</a>
+  {for $i=0; $i<$attributesCount; $i++}
+    <div class="custom-attribute">
+      <table>
+      <tr>
+        <td class="item" width="100">
+          {label "attribute_code_$i" /}
+          {input "attribute_code_$i", placeholder => 'MY_ATTR'}
+        </td>
+        <td class="item">
+          {label "attribute_name_$i" /}
+          {input "attribute_name_$i"}
+        </td>
+        <td class="item">
+          {label "attribute_value_$i" /}
+          {input "attribute_value_$i"}
+        </td>
+        <td class="item">
+          {label "attribute_minimum_$i" /}
+          {input "attribute_minimum_$i"}
+        </td>
+        <td class="item">
+          {label "attribute_maximum_$i" /}
+          {input "attribute_maximum_$i"}
+        </td>
+        <td class="item" width="80">
+          {label "attribute_unit_$i" /}
+          {input "attribute_unit_$i"}
+        </td>
+      </tr>
+      </table>
+    </div>
+  {/for}
+</div>
+
+<script type="text/javascript">
+$('#custom-attributes div').each(function() {
+  var inputs = $(this).find('input');
+  var l = inputs.length;
+  var isEmpty = true;
+  for (var i = 0; i < l; i++) {
+    if (inputs.eq(i).val()) {
+      isEmpty = false;
+      break;
+    }
+  }
+
+  if (isEmpty) {
+    $(this).hide();
+  }
+});
+$('#custom-attributes a.new-link').click(function() {
+  var hidden = $('#custom-attributes div:hidden');
+  hidden.eq('0').slideDown();
+  if (hidden.length == 1)
+    $(this).remove();
+
+  return false;
+});
+</script>

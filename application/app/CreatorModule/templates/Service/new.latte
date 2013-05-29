@@ -1,0 +1,25 @@
+{block #content}
+  <div class="page-inner">
+    <h1 class="title">{_'Create a new service'}</h1>
+    <a class="back-link" href="{link training:detail id => $training->id}">{_'back to training'}</a>
+
+    <div class="clear"></div>
+
+    <div class="w65p fl">
+      {include './_form.latte', isAjax => false}
+    </div>
+
+    <div class="w30p fr">
+      <div class="highlight-box description">
+        <h2>Definice služby</h2>
+        <p><strong>ID služby</strong> představuje jedinečný identifikátor služby a lze se na něj odkazovat z workflow (např. "EMAIL_SERVER").</p>
+        <p class="margin10"><strong>Příjmy ze služby</strong> představuje finanční částku, která je v pravidelných intervalech připisována jako platby od zákazníků v případě, kdy je služba bez problémů funkční. Skutečný příjem je ovlivněn aktuální dostupností služby.</p>
+        <p><strong>Vlastní atributy</strong> lze využít k definici vlastní parametrů služby (například kapacita, počet požadavků za sekundu apod.)</p>
+        <p class="margin10">Každý vlastní atribut má jedinečný identifikátor (opět se na něj lze odkazovat z workflow, např. "CAPACITY"), název, výchozí stav a minimální a maximální možnou hodnotu ke splnění SLA (např. "doba odezvy standardně 10 ms, max 30 ms" nebo "volný diskový prostor standardně 20 GB, min 10 GB")</p>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
+  </div>
+{/block}

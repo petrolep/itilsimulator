@@ -1,0 +1,205 @@
+{block #head}
+  <script type="text/javascript" src="{$baseUri}/js/training.frontend.js"></script>
+  <script type="text/javascript">
+    window.app = new itil.Frontend();
+    $(document).ready(app.init);
+  </script>
+{/block}
+
+{block #top}
+  <span class="training-name">{$training->name}</span>
+  <a href="{link undo}" class="top-link undo" id="undo-link">{_'undo last step'}</a>
+  {* <a href="{link default:default}" class="top-link change-scenario">{_'change training'}</a> *}
+  <a href="{link default:default}" class="top-link homepage">homepage</a>
+{/block}
+{block #content}
+  {snippet wftool}
+    {* DEBUG ONLY *}
+  <div id="wftool">WF
+    <div>
+      <?php
+      $runningWorkflow = array();
+      foreach($runningActivities as $activity) { ?>
+        {$activity->workflowActivity}<br>
+      <?php } ?>
+    </div>
+  </div>
+  {/snippet}
+
+<div id="splitter-wrapper">
+  <div id="splitter">
+    <div id="catalog">
+      <div class="page-inner">
+        <h1>{$scenario->name}</h1>
+
+        {* UI messages *}
+        {snippet uiManager}
+          {include './_uiMessages.latte'}
+        {/snippet}
+
+        {* Service catalog *}
+        {snippet serviceCatalog}
+          {control serviceCatalog}
+        {/snippet}
+      </div>
+    </div>
+
+    <div id="working-zone">
+      <div class="page-inner">
+        {* Evaluation panel (points + budget) *}
+        <div id="evaluation">
+          <ul class="tabs green">
+            <li><a href="#evaluation-data" class="ico-evaluation">{_'Your status'}</a></li>
+          </ul>
+          <div class="tabs-content green">
+            <div id="evaluation-data">
+              {snippet evaluationData}
+              <div id="evaluation-budget">
+                <span class="title">{_'Balance'}</span>
+                <span class="value">{$budget|currency}</span>
+              </div>
+              <div id="evaluation-points">
+                <span class="title">{_'Reputation'}</span>
+                <span class="value">{$points} {_'points', $points}</span>
+              </div>
+              {/snippet}
+              <div id="operations-help">
+                <div class="steps display-none">
+                  <div class="step">
+                    <h3>Úkoly</h3>
+                    <p class="description">Připravené úkoly jsou zadané v podobě vyskakovací zpráv, které daný úkol představují a nastiňují očekávané řešení.</p>
+                    <p class="description">Tyto zprávy Ti také dávají zpětnou vazbu na provedenou akci.</p>
+                  </div>
+                  <div class="step">
+                    <h3>Service desk</h3>
+                    <p class="description">V Service Desku se zobrazují přijaté události, incidenty a problémy. Ke každému záznamu lze zobrazit detail, výpisy lze filtrovat. Požadovaným úkolem může být najít vybraný záznam a provést s ním odpovídající akci (např. archivovat událost, eskalovat incident nebo vyřešit incident použitím kódu z databáze Známých chyb).</p>
+                  </div>
+                  <div class="step">
+                    <h3>Známé problémy</h3>
+                    <p class="description">Databáze známých chyb poskytuje popis řešení situací, které se již objevily. Řešení může být dočasné (většinou levnější, ale méně kvalitní) nebo trvalé. Řešení je uvedeno slovním popisem, nebo je třeba použít jako kód (Code) při řešení incidentu.</p>
+                  </div>
+                  <div class="step">
+                    <h3>Katalog služeb</h3>
+                    <p class="description">Přehled provozovaných služeb a jejich aktuálního stavu. Stav služby je ovlivněn stavem jednotlivých konfiguračních položek.</p>
+                    <p class="description">Konfigurační položku je možné v případě problémů restartovat nebo vyměnit za novou, tím se některé problémy vyřeší. Ovšem pozor, výměna něco stojí.</p>
+                  </div>
+                  <div class="step">
+                    <h3>Hodnocení</h3>
+                    <p class="description">Pokud služby běží bez poruch a v požadované kvalitě, je v pravidelných intervalech připisován finanční příjem z provozu služby. Od tohoto příjmu jsou odečteny náklady na její provoz a zisk (nebo ztráta) je přičtena k aktuálnímu zůstatku. Služba nesplňující SLA generuje snížený nebo nulový zisk (náklady jsou ale stále stejné).</p>
+                    <p class="description">Za plnění jednotlivých úkolů jsou pak připisovány body, jejichž výše se odvíjí od správnosti zvoleného postupu.</p>
+                  </div>
+                  <div class="center">
+                    <a href="#" class="btn-link link large" id="operations-help-next-step">OK</a>
+                  </div>
+                </div>
+                <a id="operations-help-link" class="btn btn-link large">Představení rozhraní</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {* Operations panel (Service desk, Known issues etc.) *}
+        <div id="operations">
+          <ul class="tabs">
+            <li><a href="#service-desk" class="service-desk">Service desk</a></li>
+            <li><a href="#known-issues" class="known-issues">{_'Known issues'}</a></li>
+            <li><a href="#monitoring" class="monitoring">{_'Service history'}</a></li>
+            <li><a href="#statistics" class="statistics">{_'My history'}</a></li>
+          </ul>
+          <div class="tabs-content">
+            <div id="service-desk">
+              <ul class="tabs">
+                <li><a href="#desk-event-mgmt">Event management</a></li>
+                <li><a href="#desk-incident-mgmt">Incident management</a></li>
+                <li><a href="#desk-problem-mgmt">Problem management</a></li>
+              </ul>
+              <div id="desk-event-mgmt">
+                {snippet eventManagement}
+                  {control eventManagement}
+                {/snippet}
+              </div>
+              <div id="desk-incident-mgmt">
+                {snippet incidentManagement}
+                  {control incidentManagement}
+                {/snippet}
+              </div>
+              <div id="desk-problem-mgmt">
+                {snippet problemManagement}
+                  {control problemManagement}
+                {/snippet}
+              </div>
+            </div>
+            <div id="known-issues">
+              <h3>{_'List of known issues'}</h3>
+              {snippet knownIssues}
+                {control knownIssues}
+              {/snippet}
+            </div>
+            <div id="monitoring">
+              <h3>{_'Service history'}</h3>
+              {snippet monitoring}
+                {if isset($displayMonitoring) && $displayMonitoring}
+                  {control monitoring}
+                {else}
+                  <div class="center margin10" id="monitoring-placeholder">
+                    <a href="{link loadMonitoring!}" class="ajax btn-link link huge" id="link-activate-monitoring">{_'Please wait, activating monitoring...'}</a>
+                  </div>
+                {/if}
+              {/snippet}
+            </div>
+            <div id="statistics">
+              <h3>{_'My history'}</h3>
+              {snippet statistics}
+                {if isset($displayStatistics) && $displayStatistics}
+                  {control statistics}
+                {else}
+                  <div class="center margin10" id="statistics-placeholder">
+                    <a href="{link loadStatistics!}" class="ajax btn-link link huge" id="link-activate-statistics">{_'Please wait, activating statistics...'}</a>
+                  </div>
+                {/if}
+              {/snippet}
+            </div>
+          </div>
+        </div> {* /operations *}
+
+      </div>
+    </div>
+  </div> {* /splitter *}
+</div>{* /splitter-wrapper *}
+
+  {snippet jsData}
+    <script type="text/javascript">
+      {if isset($requestDate)}
+      if (new Date({$requestDate}).getTime() > itil.currentPage.reloadServicesURLUpdate)
+      {/if}
+      {
+        itil.currentPage.reloadServicesURL = {link reloadServices!, jsdate => '__jsdate__', reloadServices => '__reloadServices__', reloadEvents => '__reloadEvents__'};
+        itil.currentPage.reloadServicesURLUpdate = new Date();
+        itil.currentPage.internalTime = {$internalTime};
+      }
+    </script>
+  {/snippet}
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      itil.currentPage.ping = function() {
+        if (!app.isPaused()) {
+          console.log(new Date() + ' pinging...');
+          $.getJSON({link ping}, function(response) {
+            $('#timer').html(response.date);
+            if (response.reloadServices || response.reloadEvents) {
+              console.log(new Date() + 'reloading servicse...');
+              //alert('reload');
+              $.get(itil.currentPage.reloadServicesURL.replace(/__jsdate__/, new Date().getTime()).replace(/__reloadServices__/, response.reloadServices ? 1 : 0).replace(/__reloadEvents__/, response.reloadEvents ? 1 : 0));
+            }
+            //clearInterval(pingInterval);
+          });
+        }
+      }
+      var pingInterval = setInterval(itil.currentPage.ping, 2000);
+    });
+  </script>
+
+  <div id="timer"></div>
+
+{/block}

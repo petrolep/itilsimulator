@@ -1,0 +1,81 @@
+{block #content}
+  <div class="page-inner">
+    {snippet serviceForm}
+      <h1>{_'Service'} {$service->name} {if $service->code}({$service->code}){/if}</h1>
+      <a class="back-link" href="{link training:detail $service->training->id}">{_'back to training'}</a>
+
+      {if isset($showEdit) && $showEdit}
+        <h2>{_'Edit service'}</h2>
+        {include './_form.latte'}
+      {else}
+        <h2>{_'Service description'} <a class="ajax link edit-link" href="{link editService! id => $service->id}">{_'edit'}</a></h2>
+        <p>
+          <span class="inline-info-item"><span>{_'priority'}</span> {$service->defaultSpecification->priority|priority|translate}</span>
+          <span class="inline-info-item"><span>{_'service owner'}</span> {$service->serviceOwner}</span>
+          <span class="inline-info-item"><span>{_'earns'}</span> {$service->defaultSpecification->earnings|currency}</span>
+          <span class="inline-info-item" n:foreach="$service->defaultSpecification->attributes as $attribute">
+            <span>{$attribute->name}</span> {$attribute->defaultValue} {$attribute->unit}
+          </span>
+        </p>
+        <div class="prologue">
+          {$service->description}
+        </div>
+      {/if}
+    {/snippet}
+
+    {snippet configurationItems}
+    <h2>
+      {_'Configuration items'}
+      <a class="link new-link ajax-dialog-edit" href="{link ConfigurationItem:new serviceId => $service->id}">{_'add new'}</a>
+      <a class="link new-link ajax-dialog-edit" href="{link ConfigurationItem:assign serviceId => $service->getId()}">{_'add existing global'}</a>
+    </h2>
+    <table n:if="$service->configurationItems->count()" class="list">
+      <thead>
+        <tr>
+          <th>{_'ID'}</th>
+          <th>{_'Name'}</th>
+          <th>{_'Priority'}</th>
+          <th>{_'Purchase costs'}</th>
+          <th>{_'Operational costs'}</th>
+          <th>{_'Custom'}</th>
+          <th>{_'Inputs'}</th>
+          <th>{_'Outputs'}</th>
+          <th>{_'Edit'}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$service->configurationItems as $ci">
+          <td>{$ci->code}{if $ci->isGlobal()}<br><span class="note">{_'#global'}</span>{/if}</td>
+          <td>{$ci->name}</td>
+          <td>{$ci->defaultSpecification->priority|priority|translate}</td>
+          <td>{$ci->defaultSpecification->purchaseCosts|currency}</td>
+          <td>{$ci->defaultSpecification->operationalCosts|currency}</td>
+          <td>{foreach $ci->defaultSpecification->attributes as $attribute}{$attribute->name}: {$attribute->currentValue} {$attribute->unit} ({_'min.'} {$attribute->minimumValue ?: '–' }, {_'max.'} {$attribute->maximumValue ?: '–'})<br>{/foreach}</td>
+          <td>{foreach $ci->inputs as $input}
+              {$input->name}<br>
+          {/foreach}</td>
+          <td>{foreach $ci->outputs as $output}
+              {$output->name}<br>
+          {/foreach}</td>
+          <td>
+            <a href="{link configurationItem:edit id => $ci->id, serviceId => $service->id}" class="ajax-dialog-edit link btn-link">{_'edit'}</a>
+            <a href="{link configurationItem:delete id => $ci->id, serviceId => $service->id}" class="ajax link btn-link" data-confirm="{_'Really delete?'}">{_'delete'}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+      <div n:if="!$service->configurationItems->count()" class="highlight-box">
+        <h3>Definujte konfigurační položky služby</h3>
+        <p class="prologue">Každá konfigurační položka má své vlastnosti, jejichž hodnoty se mohou během scénáře měnit a tím ovlivňovat dostupnost služby. Každá položka navíc představuje určitý finanční náklad, který se musí provozem služby zaplatit.</p>
+        <a class="link ajax-dialog-edit btn-link cta huge" href="{link ConfigurationItem:new serviceId => $service->id}">{_'add new'}</a>
+      </div>
+  </div>
+  {/snippet}
+
+  <script type="text/javascript">
+    itil.currentPage.refreshConfigurationItems = function() {
+      $.get({link refreshConfigurationItems!});
+    }
+  </script>
+{/block}

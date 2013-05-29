@@ -1,0 +1,31 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{_'Users'} <a class="link new-link" href="{link new}">{_'create new user'}</a> </h1>
+    <table class="list">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{_'Name'}</th>
+          <th>{_'Email'}</th>
+          <th>{_'Registered'}</th>
+          <th>{_'First login'}</th>
+          <th>{_'Last login'}</th>
+          <th>{_'Roles'}</th>
+          <th>{_'Edit'}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$users as $user">
+          <td>{$user->id}</td>
+          <td>{$user->name}</td>
+          <td>{$user->email}</td>
+          <td class="center">{_$user->isAnonymous ? 'no' : 'yes'}</td>
+          <td>{$user->dateRegistration|date:'d.m.Y H:i:s'}</td>
+          <td>{$user->dateLastLogin|date:'d.m.Y H:i:s'}</td>
+          <td>{foreach $user->rolesList as $role}{_$role}{if !$iterator->isLast()}, {/if}{/foreach}</td>
+          <td><a href="{link edit id => $user->id}" class="btn-link link">{_'edit'}</a> <a onclick="return confirm({_'Really delete?'});" href="{link delete! id => $user->id}" class="btn-link link">{_'delete'}</a> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{/block}

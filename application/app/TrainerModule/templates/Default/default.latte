@@ -1,0 +1,12 @@
+{block #content}
+  <div class="page-inner">
+    <h2 id="public">{_'Public trainings'}</h2>
+    <div class="task-list trainings-list">
+      <div class="item clickable" n:foreach="$trainings as $training">
+        <h3><a href="{link detail id => $training->id}">{$training->name}</a></h3>
+        <p>{$training->shortDescription}</p>
+        <a class="link btn-link large" href="{link detail id => $training->id}">{_'Show detail'}</a>
+      </div>
+    </div>
+  </div>
+{/block}

@@ -1,0 +1,886 @@
+# Gettext keys exported by GettextTranslator and Translation Panel
+# Created: 2013-05-27 20:05:55
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-05-27 20:05+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4 ? 1 : 2));\n"
+
+
+msgid "#global"
+msgstr "#globální"
+
+msgid "Activity was updated."
+msgstr "Aktivita byla upravena."
+
+msgid "Add:"
+msgstr "Přidat:"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Assign configuration item"
+msgstr "Přiřadit konfigurační položku"
+
+msgid "Assign existing configuration item"
+msgstr "Přiřadit existující konfigurační položku"
+
+msgid "Assign new"
+msgstr "Přiřadit"
+
+msgid "Back to training"
+msgstr "Zpět na výcvik"
+
+msgid "Behavioral rules"
+msgstr "Pravidla chování"
+
+msgid "Budget must be a valid number."
+msgstr "Rozpočet musí být platné číslo."
+
+msgid "Can be escalated"
+msgstr "Může být escalován"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Categories"
+msgstr "Kategorie"
+
+msgid "Category %s was deleted."
+msgstr "Kategorie %s byla smazána."
+
+msgid "Category %s was saved."
+msgstr "Kategorie %s byla uložena."
+
+msgid "Category name is required."
+msgstr "Název kategorie je povinný."
+
+msgid "Category name: "
+msgstr "Název kategorie:"
+
+msgid "Category:"
+msgstr "Kategorie:"
+
+msgid "Click and drag"
+msgstr "Klikni a táhni"
+
+msgid "Click to add"
+msgstr "Klik pro přidání"
+
+msgid "Click to edit, double click to delete"
+msgstr "Klik pro úpravu, dvojklik pro smazání."
+
+msgid "Click to edit, drag to change position"
+msgstr "Kliknout pro editaci, táhnout pro změnu pozice"
+
+msgid "Code: "
+msgstr "Kód:"
+
+msgid "Configuration item %s was assigned."
+msgstr "Konfigurační položka %s byla přiřazena."
+
+msgid "Configuration item %s was deleted."
+msgstr "Konfigurační položka %s byla smazána."
+
+msgid "Configuration item %s was saved."
+msgstr "Konfigurační položka %s byla uložena."
+
+msgid "Configuration item %s was unassigned."
+msgstr "Konfigurační položka %s byla vyřazena."
+
+msgid "Configuration item was replaced, cost %s"
+msgstr "Konfigurační položka vyměněna, náklady %s"
+
+msgid "Configuration item:"
+msgstr "Konfigurační položka:"
+
+msgid "Configuration items"
+msgstr "Konfigurační položky"
+
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgid "Create IO"
+msgstr "Vytvořit V/V"
+
+msgid "Create a new scenario"
+msgstr "Vytvořit nový scénář"
+
+msgid "Create a new service"
+msgstr "Vytvořit novou službu"
+
+msgid "Create a new training"
+msgstr "Vytvořit nový výcvik"
+
+msgid "Create category"
+msgstr "Vytvořit kategorii"
+
+msgid "Create configuration item"
+msgstr "Vytvořit konfigurační položku"
+
+msgid "Create new user"
+msgstr "Vytvořit nového uživatele"
+
+msgid "Creator"
+msgstr "Tvůrce"
+
+msgid "Custom"
+msgstr "Vlastní"
+
+msgid "Custom attributes"
+msgstr "Vlastní atributy"
+
+msgid "Custom unique ID to access the service."
+msgstr "Vlastní unikátní ID pro přistupování ke službě."
+
+msgid "Default value:"
+msgstr "Výchozí hodnota:"
+
+msgid "Delete activity"
+msgstr "Smazat aktivitu"
+
+msgid "Delete scenario"
+msgstr "Smazat scénář"
+
+msgid "Delete training"
+msgstr "Smazat výcvik"
+
+msgid "Description:"
+msgstr "Popis:"
+
+msgid "Designing service"
+msgstr "Navrhovaná služba"
+
+msgid "Detail task description:"
+msgstr "Podrobný popis úkolu:"
+
+msgid "Do you really want to remove activity?"
+msgstr "Opravdu odstranit aktivitu?"
+
+msgid "Do you really want to remove the scenario? No undo!"
+msgstr "Opravdu smazat scénář? Nelze vrátit zpět!"
+
+msgid "Do you really want to remove the training? No undo!"
+msgstr "Opravdu smazat výcvik? Nelze vzít zpět!"
+
+msgid "E-mail is required."
+msgstr "E-mail je povinný."
+
+msgid "E-mail:"
+msgstr "E-mail:"
+
+msgid "Earnings (Kč):"
+msgstr "Příjmy ze služby (Kč):"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Edit configuration item"
+msgstr "Upravit konfigurační položku"
+
+msgid "Edit custom activity"
+msgstr "Upravit vlastní aktivitu"
+
+msgid "Edit flow"
+msgstr "Upravit tok"
+
+msgid "Edit incident"
+msgstr "Upravit incident"
+
+msgid "Edit message activity"
+msgstr "Upravit zprávu"
+
+msgid "Edit problem"
+msgstr "Upravit problém"
+
+msgid "Edit profile"
+msgstr "Upravit profil"
+
+msgid "Edit scenario"
+msgstr "Upravit scénář"
+
+msgid "Edit service"
+msgstr "Upravit službu"
+
+msgid "Edit training"
+msgstr "Upravit výcvik"
+
+msgid "Edit user"
+msgstr "Upravit uživatele"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Evaluation"
+msgstr "Ohodnocení"
+
+msgid "Finish"
+msgstr "Konec"
+
+msgid "First and last name:"
+msgstr "Jméno a příjmení:"
+
+msgid "First login"
+msgstr "První přihlášení/registrace"
+
+msgid "Fix cost:"
+msgstr "Cena řešení:"
+
+msgid "Fix description:"
+msgstr "Řešení:"
+
+msgid "Graphic design"
+msgstr "Vlastní grafika"
+
+msgid "Graphic design data (HTML + CSS):"
+msgstr "Specifikace vlastní grafiky (HTML + CSS):"
+
+msgid "Health"
+msgstr "Stav"
+
+msgid "Health level (%):"
+msgstr "Stav (%):"
+
+msgid "Health level:"
+msgstr "S"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "ID:"
+msgstr "ID:"
+
+msgid "ITIL Simulator designer"
+msgstr "ITIL trenažér návrhář"
+
+msgid "Impact:"
+msgstr "Dopad:"
+
+msgid "Incident"
+msgstr "Incident"
+
+msgid "Initial budget (%s):"
+msgstr "Počáteční rozpočet (%s):"
+
+msgid "Initial budget:"
+msgstr "Počáteční rozpočet"
+
+msgid "Input/output %s was deleted."
+msgstr "Vstup/výstup %s byl smazán."
+
+msgid "Input/output code is required."
+msgstr "Kód vstupu/výstupu je povinný."
+
+msgid "Input/output name is required."
+msgstr "Název vstupu/výstupu je povinný."
+
+msgid "Input/output was updated."
+msgstr "Vstup/výstup byl vytvořen."
+
+msgid "Inputs"
+msgstr "Vstupy"
+
+msgid "Inputs & outputs"
+msgstr "Vstupy & Výstupy"
+
+msgid "Inputs:"
+msgstr "Vstupy:"
+
+msgid "Is global"
+msgstr "Je globální"
+
+msgid "Is registered:"
+msgstr "Je registrovaný:"
+
+msgid "Keywords:"
+msgstr "Klíčová slova:"
+
+msgid "Known error %s was deleted."
+msgstr "Známá chyba %s byla smazána."
+
+msgid "Known error %s was saved."
+msgstr "Známá chyba %s byla uložena."
+
+msgid "Known errors"
+msgstr "Známé chyby"
+
+msgid "Known issues"
+msgstr "Známé chyby"
+
+msgid "Last login"
+msgstr "Poslední přihlášení"
+
+msgid "Max value:"
+msgstr "Max hodnota:"
+
+msgid "Maximum length is %s"
+msgstr "Maximální délka je %s"
+
+msgid "Message"
+msgstr "Zpráva"
+
+msgid "Message type:"
+msgstr "Typ zprávy:"
+
+msgid "Message:"
+msgstr "Zpráva:"
+
+msgid "Min value:"
+msgstr "Min hodnota:"
+
+msgid "Minimum value in attribute %s must be a valid number."
+msgstr "Min hodnota atributu %s musí být číslo."
+
+msgid "Minor problems"
+msgstr "Drobné problémy"
+
+msgid "Money change:"
+msgstr "Změna financí:"
+
+msgid "My trainings"
+msgstr "Moje výcviky"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Name is required."
+msgstr "Jméno je vyžadováno."
+
+msgid "Name:"
+msgstr "Název:"
+
+msgid "Name: "
+msgstr "Název:"
+
+msgid "New known issue"
+msgstr "Nová známá chyba"
+
+msgid "New password:"
+msgstr "Nové heslo:"
+
+msgid "No global configuration items available"
+msgstr "Žádné globální konfigurační položky nejsou k dispozici"
+
+msgid "Not published"
+msgstr "Nezveřejněný"
+
+msgid "Note: this configuration will affect all services which use this CI."
+msgstr "Poznámka: změna konfigurace ovlivní všechny služby, ve kterých je položka použita"
+
+msgid "Number of points:"
+msgstr "Počet bodů:"
+
+msgid "Operational costs"
+msgstr "Provozní náklady"
+
+msgid "Operational costs:"
+msgstr "Provozní cena:"
+
+msgid "Outputs"
+msgstr "Výstupy"
+
+msgid "Outputs:"
+msgstr "Výstupy:"
+
+msgid "Overview"
+msgstr "Přehled"
+
+msgid "Please enter a valid email address."
+msgstr "Prosím zadejte platnou e-mailovou adresu."
+
+msgid "Please enter name of the workflow"
+msgstr "Zadejte prosím název workflow"
+
+msgid "Priority"
+msgstr "Priorita"
+
+msgid "Private"
+msgstr "Soukromý"
+
+msgid "Problem"
+msgstr "Problém"
+
+msgid "Problem owner:"
+msgstr "Vlastník problému:"
+
+msgid "Public"
+msgstr "Veřejný"
+
+msgid "Publish training"
+msgstr "Zveřejnit výcvik"
+
+msgid "Published"
+msgstr "Zveřejněný"
+
+msgid "Purchase costs"
+msgstr "Pořizovací náklady"
+
+msgid "Purchase costs:"
+msgstr "Pořizovací cena:"
+
+msgid "Really delete?"
+msgstr "Opravdu smazat?"
+
+msgid "Reference number:"
+msgstr "Referenční číslo:"
+
+msgid "Registered"
+msgstr "Registrován"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Roles:"
+msgstr "Role:"
+
+msgid "SD level:"
+msgstr "Úroveň SD:"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Save activity"
+msgstr "Uložit aktivitu"
+
+msgid "Save configuration item"
+msgstr "Uložit konfigurační položku"
+
+msgid "Save evaluation"
+msgstr "Uložit ohodnocení"
+
+msgid "Save flow"
+msgstr "Uložit přechod"
+
+msgid "Save incident"
+msgstr "Uložit incident"
+
+msgid "Save issue"
+msgstr "Uložit chybu"
+
+msgid "Save scenario"
+msgstr "Uložit scénář"
+
+msgid "Save service"
+msgstr "Uložit službu"
+
+msgid "Save training"
+msgstr "Uložit výcvik"
+
+msgid "Save workflow"
+msgstr "Uložit workflow"
+
+msgid "Scenario %s was saved."
+msgstr "Scénář %s byl uložen."
+
+msgid "Scenario description:"
+msgstr "Popis scénáře:"
+
+msgid "Scenario name is required."
+msgstr "Název scénáře je povinný."
+
+msgid "Scenario name:"
+msgstr "Název scénáře:"
+
+msgid "Scenario type is required"
+msgstr "Typ scénáře je povinný."
+
+msgid "Scenario type:"
+msgstr "Typ scénáře:"
+
+msgid "Scenarios"
+msgstr "Scénáře"
+
+msgid "Select service"
+msgstr "Vybrat službu"
+
+msgid "Service"
+msgstr "Služba"
+
+msgid "Service %s was saved."
+msgstr "Služba %s byla uložena."
+
+msgid "Service description"
+msgstr "Popis služby"
+
+msgid "Service design"
+msgstr "Návrh služby"
+
+msgid "Service name is required."
+msgstr "Název služby je povinný."
+
+msgid "Service operation"
+msgstr "Provoz služby"
+
+msgid "Service owner:"
+msgstr "Vlastník služby:"
+
+msgid "Services"
+msgstr "Služby"
+
+msgid "Sessions"
+msgstr "Sezení"
+
+msgid "Short description:"
+msgstr "Stručný popis:"
+
+msgid "Show detail"
+msgstr "Zobrazit detail"
+
+msgid "Specification"
+msgstr "Specifikace"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Student"
+msgstr "Student"
+
+msgid "Students of my trainings"
+msgstr "Studenti mých výcviků"
+
+msgid "Symptoms are required."
+msgstr "Symptomy jsou povinné."
+
+msgid "Symptoms:"
+msgstr "Symptomy:"
+
+msgid "TT resolve must be a valid number."
+msgstr "Čas k vyřešení musí být platné číslo."
+
+msgid "TT resolve:"
+msgstr "Čas k vyřešení:"
+
+msgid "TT response must be a valid number."
+msgstr "Čas k reakci musí být platné číslo."
+
+msgid "TT response:"
+msgstr "Čas k reakci:"
+
+msgid "The trainig does not have a discription. You should add some."
+msgstr "Výcvik nemá žádný popis, měl bys nějaký přidat."
+
+msgid "This activity has no configuration."
+msgstr "Tato aktivita nemá žádnou konfiguraci"
+
+msgid "Title is required."
+msgstr "Titulek je povinný."
+
+msgid "Title:"
+msgstr "Titulek:"
+
+msgid "To edit connection properties first save the workflow."
+msgstr "Pro upravení vazby je třeba nejdříve workflow uložit."
+
+msgid "Training"
+msgstr "Výcvik"
+
+msgid "Training %s was saved."
+msgstr "Výcvik %s byl uložen."
+
+msgid "Training is available to public users"
+msgstr "Výcvik je dostupný anonymním uživatelům"
+
+msgid "Training name is required."
+msgstr "Název výcviku je povinné"
+
+msgid "Training name:"
+msgstr "Název výcviku:"
+
+msgid "Trainings"
+msgstr "Výcviky"
+
+msgid "Unit:"
+msgstr "Jednotka:"
+
+msgid "Unsaved changes will be lost. Continue?"
+msgstr "Neuložené změny budou ztraceny. Pokračovat?"
+
+msgid "Urgency:"
+msgstr "Naléhavost:"
+
+msgid "User %s was deleted."
+msgstr "Uživatel %s byl smazán."
+
+msgid "User %s was saved."
+msgstr "Uživatel %s byl uložen."
+
+msgid "Users"
+msgstr "Uživatelé"
+
+msgid "Value must be a valid float number."
+msgstr "Hodnota musí být platné desetinné číslo."
+
+msgid "Value must be a valid integer number."
+msgstr "Hodnota musí být platné celé číslo."
+
+msgid "Workaround cost:"
+msgstr "Cena dočasného řešení:"
+
+msgid "Workaround description:"
+msgstr "Dočasné řešení:"
+
+msgid "Workflow %s was deleted."
+msgstr "Workflow %s bylo smazáno."
+
+msgid "Workflow %s was saved."
+msgstr "Workflow %s bylo uloženo."
+
+msgid "Workflows"
+msgstr "Workflow"
+
+msgid "Your codename"
+msgstr "Tvé "
+
+msgid "[Name the workflow]"
+msgstr "[Pojmenuj toto workflow]"
+
+msgid "add existing global"
+msgstr "přidat existující globální"
+
+msgid "add new"
+msgstr "přidat novou"
+
+msgid "admin"
+msgstr "admin"
+
+msgid "assign new"
+msgstr "přiřadit"
+
+msgid "back to trainings"
+msgstr "zpět na výcviky"
+
+msgid "collapse"
+msgstr "zabalit"
+
+msgid "create a new training"
+msgstr "vytvořit nový výcvik"
+
+msgid "create new"
+msgstr[0] "vytvořit nový"
+msgstr[1] "vytvořit novou"
+msgstr[2] "vytvořit nové"
+
+msgid "create new user"
+msgstr "vytvořit nového uživatele"
+
+msgid "creator"
+msgstr "tvůrce"
+
+msgid "delete"
+msgstr "smazat"
+
+msgid "drag to target"
+msgstr "táhněte k cíli"
+
+msgid "earns"
+msgstr "vydělává"
+
+msgid "edit"
+msgstr "upravit"
+
+msgid "error"
+msgstr "chyba"
+
+msgid "expand"
+msgstr "rozbalit"
+
+msgid "hint: use Ctrl+Space for an autocomplete of available properties"
+msgstr "tip: použijte Ctrl+Space pro autocomplete možných vlastností"
+
+msgid "info"
+msgstr "info"
+
+msgid "inputs and outputs can be defined in training detail"
+msgstr "vstupy a výstupy lze definovat v detailu výcviku"
+
+msgid "logout"
+msgstr "odhlásit"
+
+msgid "max."
+msgstr "max."
+
+msgid "min."
+msgstr "min."
+
+msgid "new attribute"
+msgstr "nový atribut"
+
+msgid "new flow"
+msgstr "nová vazba"
+
+msgid "no category"
+msgstr "žádná kategorie"
+
+msgid "no service selected"
+msgstr "žádná služba nebyla vybrána"
+
+msgid "no services assigned"
+msgstr "žádné služby nebyly přiřazeny"
+
+msgid "no workflow created"
+msgstr "workflow nebylo vytvořeno"
+
+msgid "onCancel:"
+msgstr "onCancel:"
+
+msgid "onEvent:"
+msgstr "onEvent:"
+
+msgid "onFinish:"
+msgstr "onFinish:"
+
+msgid "onFlow:"
+msgstr "onFlow:"
+
+msgid "onInputReceived:"
+msgstr "onInputReceived:"
+
+msgid "onPing:"
+msgstr "onPing:"
+
+msgid "onReplace:"
+msgstr "onReplace:"
+
+msgid "onRestart:"
+msgstr "onRestart:"
+
+msgid "onStart:"
+msgstr "onStart:"
+
+msgid "priority"
+msgstr "priorita"
+
+msgid "results"
+msgstr "výsledky"
+
+msgid "select service"
+msgstr "vybrat službu"
+
+msgid "service owner"
+msgstr "vlastník služby"
+
+msgid "started"
+msgstr "zahájeno"
+
+msgid "student"
+msgstr "student"
+
+msgid "students"
+msgstr "studenti"
+
+msgid "success"
+msgstr "úspěch"
+
+msgid "training zone"
+msgstr "hrací zóna"
+
+msgid "trainings"
+msgstr "moje výcviky"
+
+msgid "unassign"
+msgstr "vyřadit"
+
+msgid "users"
+msgstr "uživatelé"
+
+msgid "warning"
+msgstr "upozornění"
+
+msgid "yes"
+msgstr "ano"
+
+msgid "Edit evaluation"
+msgstr "Upravit ohodnocení"
+
+msgid "Maximum value in attribute %s must be a valid number."
+msgstr ""
+
+msgid "Please complete mandatory field."
+msgstr ""
+
+msgid "Purchase costs must be a number."
+msgstr ""
+
+msgid "Operational costs must be a number."
+msgstr ""
+
+msgid "Soubor (FILE)"
+msgstr ""
+
+msgid "Tiskový soubor (PRINT_FILE)"
+msgstr ""
+
+msgid "Min hodnota atributu 1 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 1 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 2 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 2 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 3 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 3 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 4 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 4 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 5 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 5 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 6 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 6 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 7 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 7 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 8 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 8 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 9 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 9 must be a valid number."
+msgstr ""
+
+msgid "Min hodnota atributu 10 musí být číslo."
+msgstr ""
+
+msgid "Maximum value in attribute 10 must be a valid number."
+msgstr ""
+
+msgid "[Workflow 27.05.2013]"
+msgstr ""
+
+msgid "Komunikace"
+msgstr ""
+
+msgid "Tisk"
+msgstr ""
+
+msgid "Infrastruktura"
+msgstr ""
+

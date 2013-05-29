@@ -1,0 +1,100 @@
+{block #content}
+  <div class="page-inner">
+    <h1>{$user->name}</h1>
+    <div class="w65p fl">
+      <div n:if="$sessions">
+        <h2 class="first">{_'Your trainings'}</h2>
+        <div class="task-list trainings-list trainings-list-active">
+          {foreach $sessions as $session}
+            <div class="{*col*}">
+              <div class="item{if !$session->training->isPublished} disabled{else} clickable{/if}{if $session->isFinished} finished{/if}">
+              {*
+                <a n:if="!$session->isFinished" class="fr link btn-link large" href="{link session:default $session->id}">{_'Continue'}</a>
+                <a n:if="$session->isFinished" class="fr link btn-link large" href="{link session:default $session->id}">{_'Results'}</a>
+              *}
+
+                <h3>
+                  <a href="{link session:default $session->id}">{$session->training->name}</a>
+                  {if $session->isFinished}<span class="label first training-status-finished">{_'Finished'}</span>
+                  {else}<span class="label first training-status-continue">{_'Continue'}</span>{/if}
+                </h3>
+                <span class="note">{_'last activity'} {$session->getDateEnd()|date:'d.m.Y H:i'}</span><br>
+
+                <?php $arrayTrainingSteps = $session->trainingSteps->toArray();?>
+                <ul class="progress-steps" n:inner-foreach="$session->training->scenarios as $scenario" n:if="$session->training->scenarios->count()">
+                  <?php $trainingStep = array_filter($arrayTrainingSteps, function($step) use($scenario) { return $step->scenario->id == $scenario->id; }) ?>
+                  <li class="step{if $trainingStep && reset($trainingStep)->isFinished} finished{/if}">{$scenario->name}</li>
+                </ul>
+
+                <a n:if="!$session->isFinished" class="cta link btn-link " href="{link session:default $session->id}">{_'Continue'}</a>
+                <a n:if="$session->isFinished" class="link btn-link" href="{link session:default $session->id}">{_'Results'}</a>
+
+                <em n:if="!$session->training->isPublished">{_'Training is currently unavailable'}</em>
+              </div>
+            </div>
+          {/foreach}
+        </div>
+      </div>
+
+      <div n:if="!$sessions">
+        <div class="highlight-box color with-icon" id="welcome-panel">
+          <h2>{_'Ready to launch'}</h2>
+          <p class="prologue"><strong>Vítej a díky</strong>, že mi pomáháš otestovat aplikaci na podporu výuky ITILu.</p>
+          <p class="prologue">V této <strong>hrací zóně</strong> si můžeš z pohledu uživatele zkusit "zahrát" zatím dvě situace vycházející z metodiky ITIL. V <strong>tvůrčí zóně</strong> si pak můžeš zkusit vytvořit vlastní výcvik pro ostatní uživatele.</p>
+          <div class="margin10" id="tutorial-heading"><a class="btn-link link cta huge" href="#tutorial-heading">Průvodce systémem</a> </div>
+        </div>
+
+        <h2>Stručný průvodce <a href="#" onclick="$('#tutorial').slideToggle();return false;" style="font-size: 13px;">zavřít/otevřít</a> </h2>
+        <div id="tutorial">
+          <div class="highlight-box with-icon right-aligned" style="background-image: url({$baseUri}/images/tutorial-design.png)">
+            <h3>Návrh služeb</h3>
+            <p class="prologue">Navrhnout nějakou službu nemusí být úplně jednoduché. Je třeba vzít v úvahu dostupné vstupy a očekávané výstupy, požadovanou kvalitu a také finance.</p>
+            <p class="description">Úkolem hráče v tomto výcviku je sestavit službu z dostupných konfiguračních položek, a to s ohledem na splnění zadání a nalezení optimálního řešení.</p>
+          </div>
+
+          <div class="highlight-box with-icon" style="background-image: url({$baseUri}/images/tutorial-operation.png)">
+            <h3>Provoz služeb</h3>
+            <p class="prologue">Jakmile je navržená služba uvedena do provozu, začínají se objevovat situace vyžadující naši pozornost. Zkrátka události, incidenty a problémy.</p>
+            <p class="description">Úkolem hráče je plnit úkoly připravené tvůrcem výcviku. Jedná se o řešení vzniklých incidentů a problémů omezující provoz dané služby.</p>
+          </div>
+
+          <div class="highlight-box with-icon right-aligned" style="background-image: url({$baseUri}/images/tutorial-money.png)">
+            <h3>Je to hra &ndash; sbírej body a peníze</h3>
+            <p class="prologue">Za jednotlivé splněné aktivity získáváš body, v provozu služeb i peníze.</p>
+            <p class="description">V návrhu služeb dostaneš přidělené bodové ohodnocení v závislosti na Tebou vytvořeném řešení. Během provozu služeb pak získáváš nejen body, ale i peníze od spokojených zákazníků. Ale pozor! Nespokojení zákazníci nebo špatné akce mohou znamenat bodovou i finanční ztrátu, tak pozor na to.</p>
+          </div>
+
+          <div class="highlight-box with-icon" style="background-image: url({$baseUri}/images/tutorial-showtime.png)">
+            <h3>Tak se předveď :)</h3>
+            <p class="prologue">Dole je připravený výcvik na otestování, tak ten si můžeš rovnou zahrát. Má dva scénáře &ndash; jeden pro návrh a jeden provoz služby.</p>
+            <p class="description">Pokud si nebudeš vědět rady, přestane Tě to bavit nebo se objeví nějaká systémová chybka, nezavírej, prosím, hned prohlížeč. <strong>Budu vděčný za <a href="https://docs.google.com/forms/d/1_p4ifpYHvQ9LcIDVJ7XG_PzwWo4bHhpKelLYpx3Au1g/viewform" target="_blank">vyplnění krátkého dotazníku</a>. Díky!</strong> Petr Dvořák
+            <div class="margin10" id="trainings-heading"><a class="btn-link link cta huge" href="{link default:detail, id => 5}">Začít výcvik</a> </div>
+          </div>
+        </div>
+
+      </div>
+
+      <h2>{_'Start new training'}</h2>
+      <div class="task-list trainings-list" n:inner-foreach="$trainings as $training">
+        <div class="item clickable">
+          <h3><a href="{link default:detail $training->id}">{$training->name}</a></h3>
+          <div n:if="$training->shortDescription" class="description">{$training->shortDescription}</div>
+          <div class="margin10"><a class="link btn-link{if !$sessions} cta{/if}" href="{link default:detail $training->id}">{_'Show detail'}</a>{* <a class="link btn-link large" href="{link start $training->id}">{_'start training'}</a> *}</div>
+        </div>
+      </div>
+    </div>
+    <div class="w30p fr">
+      <div class="highlight-box">
+        <h2>Systém v kostce</h2>
+        <ol>
+          <li>Mámě dva typy rozhraní &ndash; <strong>hrací zóna</strong> (toto) a <strong>tvůrčí zóna</strong>, kde se připravují výcviky. Začneme hrací zónou.</li>
+          <li>Máme dva typy výcviků &ndash; <strong>návrh služeb</strong> a <strong>provoz služeb</strong>. Liší se úkoly i vizuálně.</li>
+          <li>Začít lze připraveným výcvikem dole na stránce. Obsahuje dva scénáře &ndash; pro návrh i provoz služeb.</li>
+          <li>Pokud Tě to bude bavit, lze si pak zkusit vytvořit vlastní výcvik v <em>tvůrčí zóně</em> a případně si ho rovnou i sám zahrát. Vytvořené výcviky se ukládají, tak si ho případně může zahrát někdo jiný :)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="clear1px"></div>
+  </div>
+{/block}

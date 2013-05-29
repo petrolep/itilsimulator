@@ -1,0 +1,83 @@
+
+  {snippet detailPanel}
+  {if isset($knownIssue)}
+    <div class="to-dialog">
+      {snippet detailPanelInner}
+        <span class="title">{$knownIssue->name}</span>
+        <table class="formatted">
+          <tr>
+            <th>{_'Name:'}</th>
+            <td>{$knownIssue->name}</td>
+            <th>{_'Code:'}</th>
+            <td>{$knownIssue->code}</td>
+          </tr>
+          <tr>
+            <th>{_'Keywords:'}</th>
+            <td>{$knownIssue->keywords}</td>
+            <th>{_'Category:'}</th>
+            <td>{$knownIssue->category ? $knownIssue->category->name : ''}</td>
+          </tr>
+          <tr>
+            <th>{_'Description:'}</th>
+            <td class="description" colspan="3">{!$knownIssue->description|escape|nl2br}</td>
+          </tr>
+          <tr>
+            <th>{_'Workaround:'}</th>
+            <td class="description">
+              {!$knownIssue->workaround|escape|nl2br}
+              <strong n:if="$knownIssue->workaroundCost" class="note"><br>{_'costs'} {$knownIssue->workaroundCost|currency}</strong>
+            </td>
+            <th>{_'Fix:'}</th>
+            <td class="description">
+              {!$knownIssue->fix|escape|nl2br}
+              <strong n:if="$knownIssue->fixCost" class="note"><br>{_'costs'} {$knownIssue->fixCost|currency}</strong>
+            </td>
+          </tr>
+        </table>
+
+        <div class="buttons">
+          <a href="" class="button close">{_'close'}</a>
+        </div>
+      {/snippet}
+    </div>
+  {/if}
+  {/snippet}
+
+  {snippet issuesPanel}
+    <table class="list">
+      <thead>
+      <tr>
+        <th width="50">{_'Code'}</th>
+        <th>{_'Category'}</th>
+        <th>{_'Name'}</th>
+        <th>{_'Keywords'}</th>
+        <th>{_'Workaround'}</th>
+        <th>{_'Fix'}</th>
+        <th>{_'Detail'}</th>
+      </tr>
+      </thead>
+    {foreach $knownIssues as $issue}
+      <tr>
+        <td>{$issue->code}</td>
+        <td>{$issue->category ? $issue->category->name : ''}</td>
+        <td>{$issue->name}</td>
+        <td>{$issue->keywords}</td>
+        <td class="center">{$issue->workaround ? '✓' : ''}</td>
+        <td class="center">{$issue->fix ? '✓' : ''}</td>
+        <td><a class="ajax link btn-link service-desk-link" href="{link detail id => $issue->id}">{_'detail'}</a></td>
+      </tr>
+    {/foreach}
+    </table>
+
+    <div class="list-footer">
+      {form filterForm, class => 'ajax'}
+        <div class="fr">
+          <span class="items-count">{input itemsCount} {label itemsCount /}</span>
+          {control paginator}
+        </div>
+        <div class="filter">
+          {_'filter'} {label name /} {input name} {label keyword /} {input keyword} {input filter}
+        </div>
+      {/form}
+    </div>
+  {/snippet}

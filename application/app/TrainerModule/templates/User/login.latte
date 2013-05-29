@@ -1,0 +1,90 @@
+{var $robots = noindex}
+
+{block #content}
+  <div class="page-inner">
+
+    <div class="highlight-box color" id="hp-panel">
+      <h1>{_'ITIL simulator'}</h1>
+      <p class="prologue">
+        Jednoduchá aplikace na podporu výuky návrhu a provozu služeb dle metodiky ITIL.<br>
+        Aplikace vytvořena v rámci diplomové práce na FIT VUT a nyní prochází testováním.<br>
+        Před ukončením práce s aplikací prosím o vyplnění krátkého dotazníku, který mi pomůže při vyhodnocování. Děkuji!
+      </p>
+      <p>Petr Dvořák, autor</p>
+      {*<a class="link btn-link cta huge" href="#public">{_'Start your own game'}</a> &nbsp; {_'or'} &nbsp; <a href="{link user:login}">{_'Log in'}</a>*}
+    </div>
+
+    <script type="text/javascript">
+      itil.currentPage.initLogin = function() {
+        $('#login-form').height($('#login-form').height() + 30);
+        $('#login-form .inner').css('position', 'absolute');
+
+        $('#login-form a.switch-view').click(function() {
+          var div = $(this).parent();
+          div.fadeOut();
+
+          $('#login-form .inner').not('#' + div.attr('id')).fadeIn();
+
+          return false;
+        });
+      };
+
+      $(document).ready(function() {
+        $('#login-form-registered').hide();
+        itil.currentPage.initLogin();
+      });
+    </script>
+
+    <div id="login-form">
+      <h1>{_'Start my session'}</h1>
+      {snippet registerForm}
+        {form registerForm, class => 'ajax'}
+        <div class="inner" id="login-form-anonymous">
+          {if $form->hasErrors()}
+            <ul class="errors">
+              <li n:foreach="$form->errors as $error">{$error}</li>
+            </ul>
+            <script type="text/javascript">itil.currentPage.initLogin();</script>
+          {/if}
+          <div class="item">
+            {label name /}
+            {input name}
+          </div>
+          <div class="item login-optional-item">
+            {label email /}
+            {input email}
+          </div>
+          <a href="#" class="switch-view">{_'I have an account'}</a>
+          {input save}
+        </div>
+      {/form}
+      {/snippet}
+
+      {snippet signInForm}
+      {form signInForm, class => 'ajax'}
+        <div class="inner" id="login-form-registered">
+          {if $form->hasErrors()}
+            <ul class="errors">
+              <li n:foreach="$form->errors as $error">{$error}</li>
+            </ul>
+            <script type="text/javascript">itil.currentPage.initLogin();</script>
+          {/if}
+          <div class="item">
+            {label username /}
+            {input username}
+          </div>
+          <div class="item">
+            {label password /}
+            {input password}
+          </div>
+          <div class="item">
+            {input remember} {label remember /}
+          </div>
+          <a href="#" class="switch-view">{_'I don`t have an account'}</a>
+          {input send}
+        </div>
+      {/form}
+      {/snippet}
+    </div>
+  </div>
+{/block}
